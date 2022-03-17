@@ -1,3 +1,6 @@
+# NoCom-Extension
+Code for the browser extension from  the NoCom project
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

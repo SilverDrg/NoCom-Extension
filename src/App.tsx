@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { Title, Navigation, Footer, Home, AboutUs } from "./components";
-import { SignIn, SignUp } from "./components";
+import { SignIn, SignUp, ForgotPassword } from "./components";
 import { Comments } from "./components";
 import { createTheme, ThemeProvider } from '@mui/material';
 import './App.css';
@@ -68,6 +68,7 @@ const App: React.FC = () => {
             <Route path='/about-us' element={ <AboutUs /> }/>
             <Route path='/sign-in' element={ <SignIn /> }/>
             <Route path='/sign-up' element={ <SignUp /> }/>
+            <Route path='/forgot-pass' element={ <ForgotPassword /> }/>
           </Routes>
         </Router>
         <Footer />

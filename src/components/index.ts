@@ -6,5 +6,6 @@ export { default as AboutUs } from "./default-components/AboutUs";
 
 export { default as SignIn } from "./user-components/SignIn";
 export { default as SignUp } from "./user-components/SignUp";
+export { default as ForgotPassword } from "./user-components/ForgotPassword";
 
 export { default as Comments} from "./comment-components/Comments";

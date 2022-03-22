@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { Title, Navigation, Footer, Home, AboutUs } from "./components";
+import { Title, Navigation, Footer, Home, AboutUs, SignIn, SignUp } from "./components";
 import { createTheme, ThemeProvider } from '@mui/material';
 import './App.css';
 
@@ -63,6 +63,8 @@ const App: React.FC = () => {
             <Route path="/" element={<Navigate replace to="/home" />} />
             <Route path='/home' element={ <Home /> }/>
             <Route path='/about-us' element={ <AboutUs /> }/>
+            <Route path='/sign-in' element={ <SignIn /> }/>
+            <Route path='/sign-up' element={ <SignUp /> }/>
           </Routes>
         </Router>
         <Footer />

@@ -23,7 +23,7 @@ const Navigation = () => {
           <Tab icon={<ChatIcon color="secondary" fontSize='large' />} sx={{ width: 48, minWidth: 36 }} component={Link} to={`/home`}/>
           <Tab icon={<InfoIcon color="secondary" fontSize='large' />} sx={{ width: 48, minWidth: 36 }} component={Link} to={`/about-us`}/>
         </Tabs>
-        <Button sx={{ marginleft: "auto", margin: "auto", width: 42, minWidth: 36}} variant="contained" component={Link} to={`/about-us`} color="secondary">
+        <Button sx={{ marginleft: "auto", margin: "auto", width: 42, minWidth: 36}} variant="contained" component={Link} to={`/sign-in`} color="secondary">
           <LoginIcon color="primary"/>
         </Button>
       </Toolbar>

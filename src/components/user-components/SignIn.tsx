@@ -24,7 +24,6 @@ const SignIn = () => {
 
   return (
     <Container component="main" maxWidth="xs">
-    <CssBaseline />
     <Box
         sx={{
         marginTop: 2,

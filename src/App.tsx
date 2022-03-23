@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import { Title, Navigation, Footer, Home, AboutUs } from "./components";
 import { SignIn, SignUp, ForgotPassword } from "./components";
 import { Comments } from "./components";
-import { createTheme, ThemeProvider } from '@mui/material';
+import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import './App.css';
 
 declare module '@mui/material/styles' {
@@ -57,6 +57,7 @@ const lightTheme = createTheme({
 const App: React.FC = () => {
   return (
     <div className="App">
+      <CssBaseline/>
       <ThemeProvider theme={lightTheme}>
         <Title />
         <Router>

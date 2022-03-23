@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 
 const Navigation = () => {
   return (
-    <AppBar position="static" sx={{ background: "#94EEFF" }}>
+    <AppBar position="sticky" sx={{ background: "#94EEFF" }}>
       <Toolbar>
         <Link to={'/home'}>
           <img src={Logo} alt="NoCom" width="80px" />

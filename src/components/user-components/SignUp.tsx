@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -24,7 +23,6 @@ const SignUp = () => {
 
   return (
     <Container component="main" maxWidth="xs">
-    <CssBaseline />
         <Box
             sx={{
             marginTop: 2,
@@ -41,29 +39,16 @@ const SignUp = () => {
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                 <Grid container spacing={2} rowSpacing={0.5}>
-                    <Grid item xs={12} sm={6}>
-                    <TextField
-                        size="small"
-                        margin="dense"
-                        autoComplete="given-name"
-                        name="firstName"
-                        required
-                        fullWidth
-                        id="firstName"
-                        label="First Name"
-                        autoFocus
-                    />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12}>
                     <TextField
                         size="small"
                         margin="dense"
                         required
                         fullWidth
-                        id="lastName"
-                        label="Last Name"
-                        name="lastName"
-                        autoComplete="family-name"
+                        id="username"
+                        label="Username"
+                        name="username"
+                        autoComplete="username"
                     />
                     </Grid>
                     <Grid item xs={12}>

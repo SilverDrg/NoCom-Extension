@@ -5,7 +5,6 @@ const Home = () => {
   return (
     <div>
       <Container component="main" maxWidth="xs">
-      <CssBaseline />
         <Box
           sx={{
           marginTop: 2,

@@ -74,9 +74,9 @@ const App: React.FC = () => {
             <Route path='/sign-up' element={ <SignUp /> }/>
             <Route path='/forgot-pass' element={ <ForgotPassword /> }/>
           </Routes>
+          <Footer />
         <CommentNewButton />
         </Router>
-        <Footer />
       </ThemeProvider>
     </div>
   );

@@ -13,9 +13,12 @@ const Home = () => {
           alignItems: 'center',
           }}
         >
-          <Paper elevation={8}>
+          <Paper elevation={8} sx={{ m: 1, p: 1, width: '96%' }}>
             <Typography variant="h5">
-              Welcome to the NoCom extension!
+              Welcome to NoCom!
+            </Typography>
+            <Typography variant="body2">
+              Comment anywhere without restrictions.
             </Typography>
           </Paper>
         </Box>

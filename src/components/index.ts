@@ -13,3 +13,5 @@ export { default as ForgotPassword } from "./user-components/ForgotPassword";
 //Comment components
 export { default as Comments} from "./comment-components/Comments";
 export { default as Comment} from "./comment-components/Comment";
+export { default as CommentNew } from "./comment-components/CommentNew";
+export { default as CommentNewButton } from "./comment-components/CommentNewButton";

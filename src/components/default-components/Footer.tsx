@@ -1,12 +1,13 @@
+import { Box, Typography } from '@mui/material'
 import React from 'react'
 
 const Footer = () => {
   return (
-    <footer className="py-1 bg-dark">
-        <p className="m-0 text-center text-white">
+    <Box sx={{ position: 'static', bottom: 0 , mt: 4 }}>
+      <Typography variant="body2">
         Copyright &copy; Argentum
-        </p>
-    </footer>
+      </Typography>
+    </Box>
   )
 }
 

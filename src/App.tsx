@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { Title, Navigation, Footer, Home, AboutUs } from "./components";
 import { SignIn, SignUp, ForgotPassword } from "./components";
-import { Comments } from "./components";
+import { Comments, CommentNew, CommentNewButton } from "./components";
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import './App.css';
 
@@ -65,12 +65,16 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<Navigate replace to="/home" />} />
             <Route path='/home' element={ <Home /> }/>
-            <Route path='/comments' element={ <Comments /> }/>
             <Route path='/about-us' element={ <AboutUs /> }/>
+
+            <Route path='/comments' element={ <Comments /> }/>
+            <Route path='/comment-new' element={ <CommentNew /> }/>
+
             <Route path='/sign-in' element={ <SignIn /> }/>
             <Route path='/sign-up' element={ <SignUp /> }/>
             <Route path='/forgot-pass' element={ <ForgotPassword /> }/>
           </Routes>
+        <CommentNewButton />
         </Router>
         <Footer />
       </ThemeProvider>

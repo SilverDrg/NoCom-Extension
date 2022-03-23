@@ -1,4 +1,4 @@
-import { Box, Container } from '@mui/material'
+import { Box, Container, Paper } from '@mui/material'
 import Comment from './Comment';
 import React from 'react'
 
@@ -58,6 +58,9 @@ const Comments = () => {
         alignItems: 'center',
         }}
       >
+        <Paper>
+          
+        </Paper>
         {userComments.map((user) => (<Comment key={user.id} user={user}/>))}
       </Box>
     </Container>

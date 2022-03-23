@@ -1,4 +1,4 @@
-import { CssBaseline, Container, Box, Paper, Typography } from '@mui/material'
+import { Container, Box, Paper, Typography } from '@mui/material'
 import React from 'react'
 
 const Home = () => {

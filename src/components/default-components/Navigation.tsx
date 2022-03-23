@@ -1,7 +1,6 @@
 import Logo from '../../images/Logo-white.png';
-import LogoSvg from '../../images/Logo-white.svg';
-import React, {useState} from "react";
-import {AppBar, Toolbar, Tabs, Tab, Button, Icon} from '@mui/material';
+import React from "react";
+import {AppBar, Toolbar, Tabs, Tab, Button} from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
 import HomeIcon from '@mui/icons-material/Home';
 import ChatIcon from '@mui/icons-material/Chat';

@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import Axios from 'axios';
 import validator from 'validator'
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -14,7 +15,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Link } from 'react-router-dom';
 
-const BaseURL: string = 'https://localhost:7052/api';
+import Constants from '../constants.json'
 
 interface errorMessage {
     usernameUnavailable: string,
@@ -29,12 +30,12 @@ const SignUp = () => {
     const [password, setPassword] = useState<string>('');
     const [searchTerm, setSearchTerm] = useState<string>('');
 
+    // Check if the username is taken
     useEffect(() => {
       const delayDebounceFn = setTimeout(() => {
         console.log(searchTerm)
-        axios.get(BaseURL + '/Users/username/' + searchTerm)
+        Axios.get(Constants.API_URL + '/Users/Username/' + searchTerm)
             .then(response => {
-                console.log(response.data);
                 setInvalidForm(invalidForm => ({...invalidForm, usernameUnavailable: response.data}));
             })
             .catch(error => {
@@ -47,7 +48,6 @@ const SignUp = () => {
 
     //Validate the inputs given to the TextField
     const validateUsername = (value: string) => {
-        console.log('New name: ' + value);
         if (!(value === '') && value.length < 6) {
             setInvalidForm(invalidForm => ({...invalidForm, usernameError: 'Username must be at least 6 characters'}));
         } else {
@@ -56,7 +56,6 @@ const SignUp = () => {
     }
 
     const validateEmail = (value: string) => {
-        console.log('New email: ' + value);
         if (!validator.isEmail(value)) {
             setInvalidForm(invalidForm => ({...invalidForm, emailError: 'Email must be a valid email address'}));
         } else {
@@ -78,7 +77,6 @@ const SignUp = () => {
     }
 
     const validateMatchingPasswords = (value: string) => {
-        console.log('New pass2: ' + value);
         if (value !== password) {
             setInvalidForm(invalidForm => ({...invalidForm, matchingError: 'Passwords do not match'}));
         } else {
@@ -89,17 +87,11 @@ const SignUp = () => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        axios.post(BaseURL + '/Users', {
+        Axios.post(Constants.API_URL + '/Users/Register', {
             username: data.get('username'),
             email: data.get('email'),
             password: data.get('password')
         })
-        console.log({
-            username: data.get('username'),
-            email: data.get('email'),
-            password: data.get('password'),
-            password2: data.get('password2'),
-        });
     };
 
     return (

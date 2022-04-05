@@ -1,4 +1,6 @@
 import * as React from 'react';
+import Axios from 'axios';
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -11,6 +13,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Link } from 'react-router-dom';
 
+import Constants from '../constants.json'
+
 const SignIn = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -19,6 +23,10 @@ const SignIn = () => {
       email: data.get('email'),
       password: data.get('password'),
     });
+    Axios.post(Constants.API_URL, {
+        username: data.get('username'),
+        password: data.get('password')
+    })
   };
 
   return (

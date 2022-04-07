@@ -8,13 +8,21 @@ import InfoIcon from '@mui/icons-material/Info';
 import { Link } from 'react-router-dom';
 
 const Navigation = () => {
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
+  
   return (
     <AppBar position="sticky" sx={{ background: "#94EEFF" }}>
       <Toolbar>
         <Link to={'/home'}>
           <img src={Logo} alt="NoCom" width="80px" />
         </Link>
-        <Tabs 
+        <Tabs
+          value={value}
+          onChange={handleChange}
           sx={{ marginleft: "auto", /*margin: "auto"*/ }} 
           textColor="primary" 
         >

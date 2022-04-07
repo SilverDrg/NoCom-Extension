@@ -34,13 +34,19 @@ const SignUp = () => {
     useEffect(() => {
       const delayDebounceFn = setTimeout(() => {
         console.log(searchTerm)
-        Axios.get(Constants.API_URL + '/Users/Username/' + searchTerm)
-            .then(response => {
-                setInvalidForm(invalidForm => ({...invalidForm, usernameUnavailable: response.data}));
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        if(searchTerm !== '') {
+            Axios.get(Constants.API_URL + '/Account/Username/' + searchTerm)
+                .then(response => {
+                    if(response.data === 'taken') {
+                        setInvalidForm(invalidForm => ({...invalidForm, usernameUnavailable: 'Username is already taken'}));
+                    } else {
+                        setInvalidForm(invalidForm => ({...invalidForm, usernameUnavailable: ''}));
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
       }, 3000)
   
       return () => clearTimeout(delayDebounceFn)
@@ -87,10 +93,13 @@ const SignUp = () => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        Axios.post(Constants.API_URL + '/Users/Register', {
-            username: data.get('username'),
-            email: data.get('email'),
-            password: data.get('password')
+        Axios.post(Constants.API_URL + '/Account/Register', {
+            Username: data.get('username'),
+            Email: data.get('email'),
+            Password: data.get('password'),
+            ConfirmPassword: data.get('confirm-password')
+        }).catch(error => {
+            console.log(error);
         })
     };
 
@@ -126,10 +135,10 @@ const SignUp = () => {
                                 validateUsername(e.target.value);
                                 setSearchTerm(e.target.value);
                             }}
-                            helperText = {invalidForm.usernameError}
+                            helperText = {invalidForm.usernameError + '\n' + invalidForm.usernameUnavailable}
                             error={
                                 invalidForm.usernameError !== '' ? true : false || 
-                                invalidForm.usernameUnavailable === 'taken' ? true : false
+                                invalidForm.usernameUnavailable !== '' ? true : false
                             }
                         />
                         </Grid>

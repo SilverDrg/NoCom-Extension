@@ -20,22 +20,22 @@ declare module '@mui/material/styles' {
   }
 }
 
-const darkTheme = createTheme({
-  palette: {
-    primary: {
-      light: '#c8ffff',
-      main: '#94eeff',
-      dark: '#60bbcc',
-      contrastText: '#000000',
-    },
-    secondary: {
-      light: '#6b6f77',
-      main: '#40444b',
-      dark: '#191d23',
-      contrastText: '#ffffff',
-    },
-  },
-});
+// const darkTheme = createTheme({
+//   palette: {
+//     primary: {
+//       light: '#c8ffff',
+//       main: '#94eeff',
+//       dark: '#60bbcc',
+//       contrastText: '#000000',
+//     },
+//     secondary: {
+//       light: '#6b6f77',
+//       main: '#40444b',
+//       dark: '#191d23',
+//       contrastText: '#ffffff',
+//     },
+//   },
+// });
 
 const lightTheme = createTheme({
   palette: {

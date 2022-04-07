@@ -23,9 +23,9 @@ const SignIn = () => {
       email: data.get('email'),
       password: data.get('password'),
     });
-    Axios.post(Constants.API_URL, {
-        username: data.get('username'),
-        password: data.get('password')
+    Axios.post(Constants.API_URL + '/Account/Login', {
+        Username: data.get('username'),
+        Password: data.get('password')
     })
   };
 
@@ -51,10 +51,10 @@ const SignIn = () => {
                 size="small"
                 required
                 fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
+                id="username"
+                label="Username"
+                name="username"
+                autoComplete="username"
                 autoFocus
             />
             <TextField

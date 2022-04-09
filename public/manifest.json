@@ -6,8 +6,11 @@
   "manifest_version": 3,
   "action": {
       "default_popup": "index.html",
-      "default_title": "Open the popup"
+      "default_title": "Open NoCom"
   },
+  "permissions": [
+    "activeTab"
+  ],
   "icons": [
       {"16": "Icon-white128.png"},
       {"48": "Icon-white128.png"},

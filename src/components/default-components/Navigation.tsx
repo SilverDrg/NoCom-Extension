@@ -1,11 +1,12 @@
 import Logo from '../../images/Logo-white.png';
-import React from "react";
-import {AppBar, Toolbar, Tabs, Tab, Button} from '@mui/material';
-import LoginIcon from '@mui/icons-material/Login';
+import React from 'react';
+import { AppBar, Toolbar, Tabs, Tab } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import ChatIcon from '@mui/icons-material/Chat';
 import InfoIcon from '@mui/icons-material/Info';
 import { Link } from 'react-router-dom';
+
+import NavigationButtons from './NavigationButtons';
 
 const Navigation = () => {
   const [value, setValue] = React.useState(0);
@@ -30,9 +31,7 @@ const Navigation = () => {
           <Tab icon={<ChatIcon color="secondary" fontSize='large' />} sx={{ width: 48, minWidth: 36 }} component={Link} to={`/comments`}/>
           <Tab icon={<InfoIcon color="secondary" fontSize='large' />} sx={{ width: 48, minWidth: 36 }} component={Link} to={`/about-us`}/>
         </Tabs>
-        <Button sx={{ ml: "auto", width: 42, minWidth: 36}} variant="contained" component={Link} to={`/sign-in`} color="secondary">
-          <LoginIcon color="primary"/>
-        </Button>
+        <NavigationButtons />
       </Toolbar>
     </AppBar>
   );

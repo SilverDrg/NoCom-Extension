@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useContext } from 'react';
+import { TokenContext } from '../session-components/TokenContextProvider';
 import Axios from 'axios';
 
 import Avatar from '@mui/material/Avatar';
@@ -11,23 +13,29 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Constants from '../constants.json'
 
 const SignIn = () => {
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-    Axios.post(Constants.API_URL + '/Account/Login', {
-        Username: data.get('username'),
-        Password: data.get('password')
-    })
-  };
+    const {token, setToken} = useContext(TokenContext);
+    const navigate = useNavigate();
+
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        Axios.post(Constants.API_URL + '/Account/Login', {
+            Username: data.get('username'),
+            Password: data.get('password')
+        }).then(response => {
+            setToken(response.data.token);
+            // localStorage.setItem('token', response.data.token);
+            localStorage.setItem('expiration', response.data.expiration);
+            if(response.data.token) {
+                navigate('/comments');
+            }
+        });
+    };
 
   return (
     <Container component="main" maxWidth="xs">

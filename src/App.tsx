@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { Title, Navigation, Footer, Home, AboutUs, TokenContextProvider } from "./components";
-import { SignIn, SignUp, ForgotPassword } from "./components";
+import { SignIn, SignUp, ForgotPassword, Profile } from "./components";
 import { Comments, CommentNew, CommentNewButton } from "./components";
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import './App.css';
@@ -70,6 +70,8 @@ const App: React.FC = () => {
 
               <Route path='/comments' element={ <Comments /> }/>
               <Route path='/comment-new' element={ <CommentNew /> }/>
+
+              <Route path='/profile' element={ <Profile /> }/>
 
               <Route path='/sign-in' element={ <SignIn /> }/>
               <Route path='/sign-up' element={ <SignUp /> }/>

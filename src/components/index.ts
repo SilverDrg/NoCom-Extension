@@ -13,6 +13,7 @@ export { default as TokenContextProvider } from "./session-components/TokenConte
 export { default as SignIn } from "./user-components/SignIn";
 export { default as SignUp } from "./user-components/SignUp";
 export { default as ForgotPassword } from "./user-components/ForgotPassword";
+export { default as Profile } from "./user-components/Profile";
 
 //Comment components
 export { default as Comments} from "./comment-components/Comments";

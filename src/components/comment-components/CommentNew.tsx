@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Avatar, Button, TextField, Grid, Box, Typography, Container, FormControlLabel, Checkbox } from '@mui/material';
 import ChatIcon from '@mui/icons-material/Chat';
 import { Link } from 'react-router-dom';
@@ -7,6 +7,18 @@ import { Link } from 'react-router-dom';
 const CommentNew = () => {
     const [Anonymous, setAnonymous] = useState(false);
     const [Nsfw, setNsfw] = useState(false);
+    const [Website, setWebsite] = useState<string | undefined>();
+
+    useEffect(() => {
+        chrome.tabs && chrome.tabs.query({
+            active: true,
+            currentWindow: true
+          }, tabs => {
+            setWebsite(tabs[0].url);
+        });
+
+        console.log(Website);
+    }, [Website]);
 
     const handleAnonymous = () => {
         setAnonymous(!Anonymous);
@@ -20,9 +32,9 @@ const CommentNew = () => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         console.log({
-        content: data.get('comment'),
-        anonymous: Anonymous,
-        nsfw: Nsfw
+            content: data.get('comment'),
+            anonymous: Anonymous,
+            nsfw: Nsfw
         });
     };
 

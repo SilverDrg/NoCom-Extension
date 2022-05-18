@@ -2,12 +2,13 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { Avatar, Button, TextField, Grid, Box, Typography, Container, FormControlLabel, Checkbox } from '@mui/material';
 import ChatIcon from '@mui/icons-material/Chat';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const CommentNew = () => {
     const [Anonymous, setAnonymous] = useState(false);
     const [Nsfw, setNsfw] = useState(false);
     const [Website, setWebsite] = useState<string | undefined>();
+    const navigate = useNavigate();
 
     useEffect(() => {
         chrome.tabs && chrome.tabs.query({
@@ -87,9 +88,9 @@ const CommentNew = () => {
                 </Button>
                 <Grid container>
                     <Grid item>
-                        <Link to="/comments" style={{ textDecoration: 'none' }}>
+                        <Link to="/" onClick={() => navigate(-1)} style={{ textDecoration: 'none' }}>
                             <Typography color="primary.dark" variant="body2">
-                                {"Back to comments"}
+                                {"Back"}
                             </Typography>
                         </Link>
                     </Grid>

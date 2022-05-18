@@ -1,4 +1,4 @@
-import { Container, Box, Paper, Typography } from '@mui/material'
+import { Container, Box, Typography } from '@mui/material'
 import React from 'react'
 
 const Home = () => {
@@ -13,14 +13,12 @@ const Home = () => {
           alignItems: 'center',
           }}
         >
-          <Paper elevation={8} sx={{ m: 1, p: 1, width: '96%' }}>
-            <Typography variant="h5">
-              Welcome to NoCom!
-            </Typography>
-            <Typography variant="body2">
-              Comment anywhere without restrictions.
-            </Typography>
-          </Paper>
+          <Typography variant="h5">
+            Welcome to NoCom!
+          </Typography>
+          <Typography variant="body2">
+            Comment anywhere without restrictions.
+          </Typography>
         </Box>
       </Container>
     </div>

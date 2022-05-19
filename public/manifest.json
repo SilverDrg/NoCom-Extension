@@ -11,9 +11,9 @@
   "permissions": [
     "activeTab"
   ],
-  "icons": [
-      {"16": "Icon-white128.png"},
-      {"48": "Icon-white128.png"},
-      {"128": "Icon-white128.png"}
-  ]
+  "icons": {
+      "16": "Icon-white128.png",
+      "48": "Icon-white128.png",
+      "128": "Icon-white128.png"
+  }
 }

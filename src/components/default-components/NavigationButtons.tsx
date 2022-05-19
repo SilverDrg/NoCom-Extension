@@ -32,7 +32,13 @@ const NavigationButtons = () => {
   const SignedIn = token !== null;
 
   const onClickToggleMode = () => {
-    mode === 'light' ? setMode('dark') : setMode('light')
+    if(mode === 'light') { 
+      setMode('dark')
+      localStorage.setItem('theme', 'dark');
+    } else { 
+      setMode('light')
+      localStorage.setItem('theme', 'light');
+    }
   }
 
   const onClickSignOut = () => {

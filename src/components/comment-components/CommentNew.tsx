@@ -31,11 +31,18 @@ const CommentNew = () => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        chrome.tabs && chrome.tabs.query({
+            active: true,
+            currentWindow: true
+          }, tabs => {
+              setWebsite(tabs[0].url)
+          })
         const data = new FormData(event.currentTarget);
         console.log({
             content: data.get('comment'),
             anonymous: Anonymous,
-            nsfw: Nsfw
+            nsfw: Nsfw,
+            website: Website
         });
     };
 

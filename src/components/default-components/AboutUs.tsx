@@ -1,5 +1,4 @@
-import { Container, Box, Paper, Typography, Card, CardHeader, CardMedia, CardContent } from '@mui/material'
-import React from 'react'
+import { Container, Box, Typography, Card, CardHeader, CardMedia, CardContent } from '@mui/material'
 import Placeholder from '../../images/DogPlaceholder.jpg';
 
 const AboutUs = () => {

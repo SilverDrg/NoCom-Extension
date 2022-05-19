@@ -1,6 +1,5 @@
 import { Box, Container } from '@mui/material'
 import Comment from './Comment';
-import React from 'react'
 
 const userComments = [
   {

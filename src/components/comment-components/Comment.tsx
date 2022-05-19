@@ -21,7 +21,7 @@ const Comment = (props: any) => {
   }
 
   return (
-    <Paper elevation={3} sx={{ m: 1, width: '96%'}}>
+    <Paper elevation={3} sx={{ width: '100%', m: 1, mt: 0.5, mb: 1 }}>
         <Typography variant="body1" align="left" sx={{ m: 1, borderBottom: 1, borderColor: 'primary.main'}}>
             {user.username}
         </Typography>

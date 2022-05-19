@@ -48,7 +48,7 @@ const userComments = [
 
 const Comments = () => {
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" sx={{ pl: 1, pr: 1}}>
       <Box
         sx={{
         marginTop: 2,

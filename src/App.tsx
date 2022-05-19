@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { Title, Navigation, Footer, Home, AboutUs, TokenContextProvider } from "./components";
-import { SignIn, SignUp, ForgotPassword, Profile } from "./components";
+import { Title, Navigation, Footer, Home, AboutUs, TokenContextProvider, ThemeContextProvider } from "./components";
+import { SignIn, SignUp, ForgotPassword, Profile, Settings } from "./components";
 import { Comments, CommentNew, CommentNewButton } from "./components";
-import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
+import { CssBaseline, Box } from '@mui/material';
 import './App.css';
 
 declare module '@mui/material/styles' {
@@ -20,67 +20,41 @@ declare module '@mui/material/styles' {
   }
 }
 
-// const darkTheme = createTheme({
-//   palette: {
-//     primary: {
-//       light: '#c8ffff',
-//       main: '#94eeff',
-//       dark: '#60bbcc',
-//       contrastText: '#000000',
-//     },
-//     secondary: {
-//       light: '#6b6f77',
-//       main: '#40444b',
-//       dark: '#191d23',
-//       contrastText: '#ffffff',
-//     },
-//   },
-// });
-
-const lightTheme = createTheme({
-  palette: {
-    primary: {
-      light: '#c8ffff',
-      main: '#94eeff',
-      dark: '#60bbcc',
-      contrastText: '#000000',
-    },
-    secondary: {
-      light: '#ffffff',
-      main: '#efefef',
-      dark: '#bdbdbd',
-      contrastText: '#000000',
-    },
-  },
-});
-
-const App: React.FC = () => {
+const App: React.FC = () => {  
   return (
     <TokenContextProvider>
       <div className="App">
+        <ThemeContextProvider>
         <CssBaseline/>
-        <ThemeProvider theme={lightTheme}>
-          <Title />
-          <Router>
-          <Navigation />
-            <Routes>
-              <Route path="/" element={<Navigate replace to="/home" />} />
-              <Route path='/home' element={ <Home /> }/>
-              <Route path='/about-us' element={ <AboutUs /> }/>
+          <Box
+            sx={{
+              backgroundColor: 'background.default',
+              color: 'text.primary'
+            }}
+          >
+            <Title />
+            <Router>
+            <Navigation />
+              <Routes>
+                <Route path="/" element={<Navigate replace to="/home" />} />
+                <Route path='/home' element={ <Home /> }/>
+                <Route path='/about-us' element={ <AboutUs /> }/>
 
-              <Route path='/comments' element={ <Comments /> }/>
-              <Route path='/comment-new' element={ <CommentNew /> }/>
+                <Route path='/comments' element={ <Comments /> }/>
+                <Route path='/comment-new' element={ <CommentNew /> }/>
 
-              <Route path='/profile' element={ <Profile /> }/>
+                <Route path='/profile' element={ <Profile /> }/>
+                <Route path='/settings' element={ <Settings /> }/>
 
-              <Route path='/sign-in' element={ <SignIn /> }/>
-              <Route path='/sign-up' element={ <SignUp /> }/>
-              <Route path='/forgot-pass' element={ <ForgotPassword /> }/>
-            </Routes>
-            <Footer />
-          <CommentNewButton />
-          </Router>
-        </ThemeProvider>
+                <Route path='/sign-in' element={ <SignIn /> }/>
+                <Route path='/sign-up' element={ <SignUp /> }/>
+                <Route path='/forgot-pass' element={ <ForgotPassword /> }/>
+              </Routes>
+              <Footer />
+            <CommentNewButton />
+            </Router>
+          </Box>
+        </ThemeContextProvider>
       </div>
     </TokenContextProvider>
   );

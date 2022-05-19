@@ -8,12 +8,14 @@ export { default as AboutUs } from "./default-components/AboutUs";
 
 //Session components
 export { default as TokenContextProvider } from "./session-components/TokenContextProvider";
+export { default as ThemeContextProvider } from "./session-components/ThemeContextProvider";
 
 //User components
 export { default as SignIn } from "./user-components/SignIn";
 export { default as SignUp } from "./user-components/SignUp";
 export { default as ForgotPassword } from "./user-components/ForgotPassword";
 export { default as Profile } from "./user-components/Profile";
+export { default as Settings } from "./user-components/Settings";
 
 //Comment components
 export { default as Comments} from "./comment-components/Comments";

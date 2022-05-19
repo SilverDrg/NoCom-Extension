@@ -3,7 +3,6 @@ import React from 'react';
 import { AppBar, Toolbar, Tabs, Tab } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import ChatIcon from '@mui/icons-material/Chat';
-import InfoIcon from '@mui/icons-material/Info';
 import { Link } from 'react-router-dom';
 
 import NavigationButtons from './NavigationButtons';
@@ -29,7 +28,6 @@ const Navigation = () => {
         >
           <Tab icon={<HomeIcon color="secondary" fontSize='large' />} sx={{ width: 48, minWidth: 36 }} component={Link} to={`/home`}/>
           <Tab icon={<ChatIcon color="secondary" fontSize='large' />} sx={{ width: 48, minWidth: 36 }} component={Link} to={`/comments`}/>
-          <Tab icon={<InfoIcon color="secondary" fontSize='large' />} sx={{ width: 48, minWidth: 36 }} component={Link} to={`/about-us`}/>
         </Tabs>
         <NavigationButtons />
       </Toolbar>

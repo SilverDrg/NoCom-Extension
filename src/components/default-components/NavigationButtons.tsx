@@ -27,7 +27,7 @@ const NavigationButtons = () => {
         setExpired(false)
       }
     }
-  }, []);
+  });
 
   const SignedIn = token !== null;
 
@@ -46,7 +46,7 @@ const NavigationButtons = () => {
         <IconButton sx={{ ml: 1, mr: 1, width: 42, minWidth: 36}} component={Link} to={`/profile`} color="primary">
             <AccountCircleIcon color="secondary" fontSize="large"/>
         </IconButton>
-        <Button sx={{ m: 1, width: 42, minWidth: 36}} variant="contained" component={Link} to={`/log-out`} color="secondary">
+        <Button sx={{ m: 1, width: 42, minWidth: 36}} variant="contained" color="secondary" onClick={onClickSignOut}>
             <LogoutIcon color="primary"/>
         </Button>
       </Box>
@@ -58,7 +58,7 @@ const NavigationButtons = () => {
       <IconButton sx={{ ml: 1, mr: 1, width: 42, minWidth: 36}} color="secondary" onClick={onClickToggleMode}>
         {mode === 'dark' ? <DarkModeIcon fontSize="large" /> : <LightModeIcon fontSize="large" />}
       </IconButton>
-      <Button sx={{ width: 42, minWidth: 36}} variant="contained" color="secondary" onClick={onClickSignOut}>
+      <Button sx={{ width: 42, minWidth: 36}} variant="contained" component={Link} to={`/sign-in`} color="secondary">
           <LoginIcon color="primary"/>
       </Button>
     </Box>

@@ -1,4 +1,4 @@
-import { Container, Box, Typography, Card, CardHeader, CardMedia, CardContent } from '@mui/material'
+import { Container, Box, Typography, Card, CardHeader, CardMedia, CardContent, Paper } from '@mui/material'
 import Placeholder from '../../images/DogPlaceholder.jpg'
 import React from 'react'
 
@@ -14,12 +14,14 @@ const Home = () => {
           alignItems: 'center',
           }}
         >
-          <Typography variant="h5" sx={{ mt: 2 }}>
-            Welcome to NoCom!
-          </Typography>
-          <Typography variant="body2" sx={{ mb: 5, borderBottom: 2, borderColor: 'primary.dark' }}>
-            Comment anywhere without restrictions.
-          </Typography>
+          <Paper sx={{ mt: 2, mb: 4, width: '92%'}}>
+            <Typography variant="h5" sx={{ mt: 2 }}>
+              Welcome to NoCom!
+            </Typography>
+            <Typography variant="body2" sx={{ mb: 2 }}>
+              Comment anywhere without restrictions.
+            </Typography>
+          </Paper>
 
           <Typography variant="h6" align="left" sx={{ m: 1 }}>
             What is NoCom?

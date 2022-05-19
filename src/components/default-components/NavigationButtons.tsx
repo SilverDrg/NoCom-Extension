@@ -1,25 +1,46 @@
-import { useContext } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Button, IconButton, Box } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { TokenContext } from '../session-components/TokenContextProvider';
 import { ColorModeContext } from '../session-components/ThemeContextProvider';
 
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
 
 const NavigationButtons = () => {
   const {token, setToken} = useContext(TokenContext);
   const {mode, setMode} = useContext(ColorModeContext);
+  const [expired, setExpired] = useState<boolean>();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(localStorage.getItem('expiration') !== null) {
+      var expires = new Date(localStorage.getItem('expiration')!);
+      var now = new Date();
+      if(expires === null || expires < now) {
+        setExpired(true)
+        setToken(null)
+      } else {
+        setExpired(false)
+      }
+    }
+  }, []);
+
   const SignedIn = token !== null;
 
   const onClickToggleMode = () => {
     mode === 'light' ? setMode('dark') : setMode('light')
   }
+
+  const onClickSignOut = () => {
+    setToken(null)
+    navigate('/comments')
+  }
   
-  if (SignedIn) {
+  if (SignedIn && !expired) {
     return (
       <Box sx={{ ml: "auto" }}>
         <IconButton sx={{ ml: 1, mr: 1, width: 42, minWidth: 36}} component={Link} to={`/profile`} color="primary">
@@ -34,10 +55,10 @@ const NavigationButtons = () => {
 
   return (
     <Box sx={{ ml: "auto" }}>
-      <IconButton sx={{ ml: 1, mr: 1, width: 42, minWidth: 36}} color="primary" onClick={onClickToggleMode}>
-        {mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+      <IconButton sx={{ ml: 1, mr: 1, width: 42, minWidth: 36}} color="secondary" onClick={onClickToggleMode}>
+        {mode === 'dark' ? <DarkModeIcon fontSize="large" /> : <LightModeIcon fontSize="large" />}
       </IconButton>
-      <Button sx={{ width: 42, minWidth: 36}} variant="contained" component={Link} to={`/sign-in`} color="secondary">
+      <Button sx={{ width: 42, minWidth: 36}} variant="contained" color="secondary" onClick={onClickSignOut}>
           <LoginIcon color="primary"/>
       </Button>
     </Box>

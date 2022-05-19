@@ -49,7 +49,7 @@ const CommentNew = () => {
             alignItems: 'center',
             }}
         >
-            <Avatar sx={{ m: 1, bgcolor: 'secondary.dark' }}>
+            <Avatar sx={{ m: 1, bgcolor: 'secondary' }}>
                 <ChatIcon />
             </Avatar>
             <Typography component="h1" variant="h6">

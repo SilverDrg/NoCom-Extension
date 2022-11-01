@@ -4,10 +4,10 @@ import { Avatar, Button, TextField, Grid, Box, Typography, Container, FormContro
 import ChatIcon from '@mui/icons-material/Chat';
 import { Link, useNavigate } from 'react-router-dom';
 
-const CommentNew = () => {
-    const [Anonymous, setAnonymous] = useState(false);
-    const [Nsfw, setNsfw] = useState(false);
-    const [Website, setWebsite] = useState<string | undefined>();
+export const CommentNew = () => {
+    const [anonymous, setAnonymous] = useState(false);
+    const [nsfw, setNsfw] = useState(false);
+    const [website, setWebsite] = useState<string | undefined>();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -18,15 +18,15 @@ const CommentNew = () => {
             setWebsite(tabs[0].url);
         });
 
-        console.log(Website);
-    }, [Website]);
+        console.log(website);
+    }, [website]);
 
     const handleAnonymous = () => {
-        setAnonymous(!Anonymous);
+        setAnonymous(!anonymous);
     }
 
     const handleNsfw = () => {
-        setNsfw(!Nsfw);
+        setNsfw(!nsfw);
     }
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -40,9 +40,9 @@ const CommentNew = () => {
         const data = new FormData(event.currentTarget);
         console.log({
             content: data.get('comment'),
-            anonymous: Anonymous,
-            nsfw: Nsfw,
-            website: Website
+            anonymous: anonymous,
+            nsfw: nsfw,
+            website: website
         });
     };
 
@@ -78,11 +78,11 @@ const CommentNew = () => {
                     autoFocus
                 />
                 <FormControlLabel
-                    control={<Checkbox value="anonymous" checked={Anonymous} onChange={handleAnonymous} color="primary" />}
+                    control={<Checkbox value="anonymous" checked={anonymous} onChange={handleAnonymous} color="primary" />}
                     label="Anonymous"
                 />
                 <FormControlLabel
-                    control={<Checkbox value="nsfw" checked={Nsfw} onChange={handleNsfw} color="primary" />}
+                    control={<Checkbox value="nsfw" checked={nsfw} onChange={handleNsfw} color="primary" />}
                     label="Nsfw"
                 />
                 <Button
@@ -107,5 +107,3 @@ const CommentNew = () => {
         </Container>
     );
 }
-
-export default CommentNew;

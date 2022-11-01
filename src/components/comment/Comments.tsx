@@ -1,5 +1,5 @@
 import { Box, Container } from '@mui/material'
-import Comment from './Comment';
+import { Comment } from './Comment';
 
 const userComments = [
   {
@@ -46,7 +46,7 @@ const userComments = [
   }
 ]
 
-const Comments = () => {
+export const Comments = () => {
   return (
     <Container component="main" maxWidth="xs" sx={{ pl: 1, pr: 1}}>
       <Box
@@ -62,5 +62,3 @@ const Comments = () => {
     </Container>
   )
 }
-
-export default Comments

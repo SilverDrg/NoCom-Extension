@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useContext } from 'react';
-import { TokenContext } from '../session-components/TokenContextProvider';
+import { TokenContext } from '../session/TokenContextProvider';
 import Axios from 'axios';
 
 import Avatar from '@mui/material/Avatar';
@@ -15,8 +15,8 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import Constants from '../constants.json'
 
-const SignIn = () => {
-    const {token, setToken} = useContext(TokenContext);
+export const SignIn = () => {
+    const { setToken } = useContext(TokenContext);
     const navigate = useNavigate();
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -29,6 +29,7 @@ const SignIn = () => {
             setToken(response.data.token);
             // localStorage.setItem('token', response.data.token);
             localStorage.setItem('expiration', response.data.expiration);
+            localStorage.setItem('userId', response.data.userId);
             if(response.data.token) {
                 navigate('/comments');
             }
@@ -103,5 +104,3 @@ const SignIn = () => {
     </Container>
   );
 }
-
-export default SignIn;

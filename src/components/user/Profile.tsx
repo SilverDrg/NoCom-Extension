@@ -31,7 +31,7 @@ function TabPanel(props: TabPanelProps) {
   );
 }
 
-const Profile = () => {
+export const Profile = () => {
   const [tab, setTab] = React.useState(0);
 
   const ChangeTab = (event: React.SyntheticEvent, newTab: number) => {
@@ -94,5 +94,3 @@ const Profile = () => {
     </Box>
   )
 }
-
-export default Profile

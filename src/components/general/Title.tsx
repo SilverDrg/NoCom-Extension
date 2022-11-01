@@ -3,12 +3,10 @@ import { Helmet } from 'react-helmet'
 
 const TITLE = 'NoCom';
 
-const Title = () => {
+export const Title = () => {
   return (
     <Helmet>
         <title>{ TITLE }</title>
     </Helmet>
   )
 }
-
-export default Title

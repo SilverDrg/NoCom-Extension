@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material'
 import React from 'react'
 
-const Footer = () => {
+export const Footer = () => {
   return (
     <Box sx={{ position: 'static', bottom: 0 , mt: 2, pb: 2 }}>
       <Typography variant="body2">
@@ -10,5 +10,3 @@ const Footer = () => {
     </Box>
   )
 }
-
-export default Footer

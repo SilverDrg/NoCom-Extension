@@ -1,7 +1,7 @@
 import { Container, Box, Typography, Card, CardHeader, CardMedia, CardContent } from '@mui/material'
 import Placeholder from '../../images/DogPlaceholder.jpg';
 
-const AboutUs = () => {
+export const AboutUs = () => {
   return (
     <Container component="main" maxWidth="xs">
       <Box
@@ -62,5 +62,3 @@ const AboutUs = () => {
     </Container>
   )
 }
-
-export default AboutUs

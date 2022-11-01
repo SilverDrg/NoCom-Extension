@@ -1,13 +1,13 @@
 import { Box, Typography, Grid, Avatar, Fab } from '@mui/material'
 import { useContext } from 'react';
-import { ColorModeContext } from '../session-components/ThemeContextProvider';
+import { ColorModeContext } from '../session/ThemeContextProvider';
 
 import Placeholder from '../../images/DogPlaceholder.jpg';
 import BannerPlaceholder from '../../images/wolf.jpg';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 
-const Settings = () => {
+export const Settings = () => {
     const {mode, setMode} = useContext(ColorModeContext);
 
     const onClickToggleMode = () => {
@@ -51,5 +51,3 @@ const Settings = () => {
         </Box>
     )
 }
-
-export default Settings

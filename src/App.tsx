@@ -1,9 +1,19 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { Title, Navigation, Footer, Home, AboutUs, TokenContextProvider, ThemeContextProvider } from "./components";
-import { SignIn, SignUp, ForgotPassword, Profile, Settings } from "./components";
-import { Comments, CommentNew, CommentNewButton } from "./components";
 import { CssBaseline, Box } from '@mui/material';
+import TokenContextProvider from './components/session/TokenContextProvider';
+import { Title, Navigation, Home, Settings } from '@mui/icons-material';
+import { CommentNew } from './components/comment/CommentNew';
+import { CommentNewButton } from './components/comment/CommentNewButton';
+import { Comments } from './components/comment/Comments';
+import { AboutUs } from './components/general/AboutUs';
+import { Footer } from './components/general/Footer';
+import ThemeContextProvider from './components/session/ThemeContextProvider';
+import { ForgotPassword } from './components/user/ForgotPassword';
+import { Profile } from './components/user/Profile';
+import { SignIn } from './components/user/SignIn';
+import { SignUp } from './components/user/SignUp';
+
 import './App.css';
 
 declare module '@mui/material/styles' {
@@ -20,12 +30,12 @@ declare module '@mui/material/styles' {
   }
 }
 
-const App: React.FC = () => {  
+const App: React.FC = () => {
   return (
     <TokenContextProvider>
       <div className="App">
         <ThemeContextProvider>
-        <CssBaseline/>
+          <CssBaseline />
           <Box
             sx={{
               backgroundColor: 'background.default',
@@ -34,24 +44,24 @@ const App: React.FC = () => {
           >
             <Title />
             <Router>
-            <Navigation />
+              <Navigation />
               <Routes>
                 <Route path="/" element={<Navigate replace to="/home" />} />
-                <Route path='/home' element={ <Home /> }/>
-                <Route path='/about-us' element={ <AboutUs /> }/>
+                <Route path='/home' element={<Home />} />
+                <Route path='/about-us' element={<AboutUs />} />
 
-                <Route path='/comments' element={ <Comments /> }/>
-                <Route path='/comment-new' element={ <CommentNew /> }/>
+                <Route path='/comments' element={<Comments />} />
+                <Route path='/comment-new' element={<CommentNew />} />
 
-                <Route path='/profile' element={ <Profile /> }/>
-                <Route path='/settings' element={ <Settings /> }/>
+                <Route path='/profile' element={<Profile />} />
+                <Route path='/settings' element={<Settings />} />
 
-                <Route path='/sign-in' element={ <SignIn /> }/>
-                <Route path='/sign-up' element={ <SignUp /> }/>
-                <Route path='/forgot-pass' element={ <ForgotPassword /> }/>
+                <Route path='/sign-in' element={<SignIn />} />
+                <Route path='/sign-up' element={<SignUp />} />
+                <Route path='/forgot-pass' element={<ForgotPassword />} />
               </Routes>
               <Footer />
-            <CommentNewButton />
+              <CommentNewButton />
             </Router>
           </Box>
         </ThemeContextProvider>

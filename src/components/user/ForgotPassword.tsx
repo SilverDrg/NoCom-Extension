@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Link } from 'react-router-dom';
 
-const ForgotPassword = () => {
+export const ForgotPassword = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -68,5 +68,3 @@ const ForgotPassword = () => {
     </Container>
   );
 }
-
-export default ForgotPassword;

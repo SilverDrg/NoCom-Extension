@@ -2,7 +2,7 @@ import { Container, Box, Typography, Card, CardHeader, CardMedia, CardContent, P
 import Placeholder from '../../images/DogPlaceholder.jpg'
 import React from 'react'
 
-const Home = () => {
+export const Home = () => {
   return (
     <div>
       <Container component="main" maxWidth="xs" sx={{ p: 0 }}>
@@ -71,5 +71,3 @@ const Home = () => {
     </div>
   )
 }
-
-export default Home

@@ -5,9 +5,9 @@ import HomeIcon from '@mui/icons-material/Home';
 import ChatIcon from '@mui/icons-material/Chat';
 import { Link } from 'react-router-dom';
 
-import NavigationButtons from './NavigationButtons';
+import { NavigationButtons } from './NavigationButtons';
 
-const Navigation = () => {
+export const Navigation = () => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -34,5 +34,3 @@ const Navigation = () => {
     </AppBar>
   );
 };
-
-export default Navigation;

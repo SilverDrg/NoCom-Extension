@@ -1,8 +1,8 @@
 import { useContext, useState, useEffect } from 'react';
 import { Button, IconButton, Box } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-import { TokenContext } from '../session-components/TokenContextProvider';
-import { ColorModeContext } from '../session-components/ThemeContextProvider';
+import { TokenContext } from '../session/TokenContextProvider';
+import { ColorModeContext } from '../session/ThemeContextProvider';
 
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -10,7 +10,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 
-const NavigationButtons = () => {
+export const NavigationButtons = () => {
   const {token, setToken} = useContext(TokenContext);
   const {mode, setMode} = useContext(ColorModeContext);
   const [expired, setExpired] = useState<boolean>();
@@ -27,7 +27,7 @@ const NavigationButtons = () => {
         setExpired(false)
       }
     }
-  });
+  }, [setToken]);
 
   const SignedIn = token !== null;
 
@@ -70,5 +70,3 @@ const NavigationButtons = () => {
     </Box>
   );
 };
-
-export default NavigationButtons;

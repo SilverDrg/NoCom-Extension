@@ -4,7 +4,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useState } from 'react'
 
-const Comment = (props: any) => {
+export const Comment = (props: any) => {
   const [Like, setLike] = useState(false);
   const user = props.user;
   let isNSFW;
@@ -55,5 +55,3 @@ const Comment = (props: any) => {
     </Paper>
   )
 }
-
-export default Comment

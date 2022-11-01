@@ -1,8 +1,11 @@
 import * as React from 'react';
+import Axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Avatar, Button, TextField, Grid, Box, Typography, Container, FormControlLabel, Checkbox } from '@mui/material';
 import ChatIcon from '@mui/icons-material/Chat';
 import { Link, useNavigate } from 'react-router-dom';
+
+import Constants from '../constants.json'
 
 export const CommentNew = () => {
     const [anonymous, setAnonymous] = useState(false);
@@ -15,11 +18,9 @@ export const CommentNew = () => {
             active: true,
             currentWindow: true
           }, tabs => {
-            setWebsite(tabs[0].url);
+            console.log(tabs[0].url);
         });
-
-        console.log(website);
-    }, [website]);
+    }, []);
 
     const handleAnonymous = () => {
         setAnonymous(!anonymous);
@@ -42,7 +43,17 @@ export const CommentNew = () => {
             content: data.get('comment'),
             anonymous: anonymous,
             nsfw: nsfw,
-            website: website
+            website: website,
+            userId: localStorage.getItem('userId'),
+        });
+        Axios.post(Constants.API_URL + '/Comments', {
+            content: data.get('comment'),
+            anonymous: anonymous,
+            nsfw: nsfw,
+            website: website ?? '',
+            userId: localStorage.getItem('userId'),
+        }).then(response => {
+            console.log(response);
         });
     };
 

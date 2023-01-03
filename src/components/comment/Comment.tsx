@@ -4,16 +4,18 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useState } from 'react'
 
+import { CommentModel } from '../../models/Comment';
+
 export const Comment = (props: any) => {
   const [Like, setLike] = useState(false);
-  const user = props.user;
+  const comment: CommentModel = props.comment;
   let isNSFW;
 
   const handleLike = () => {
-    setLike(!Like);
+    setLike((like) => !like);
   }
 
-  if (user.nsfw === "true") {
+  if (comment.nsfw) {
     isNSFW = 
     <Grid item xs={3} md={3}>
       <Typography variant="button" color="red">NSFW</Typography>
@@ -23,10 +25,10 @@ export const Comment = (props: any) => {
   return (
     <Paper elevation={3} sx={{ width: '100%', m: 1, mt: 0.5, mb: 1 }}>
         <Typography variant="body1" align="left" sx={{ m: 1, borderBottom: 1, borderColor: 'primary.main'}}>
-            {user.username}
+            {comment.username}
         </Typography>
         <Typography variant="body2" align="left" sx={{ m: 1}}>
-            {user.comment}
+            {comment.content}
         </Typography>
         <Grid container>
           <Grid item container spacing={0} xs={9} md={9}>
@@ -47,7 +49,7 @@ export const Comment = (props: any) => {
               />
             </Grid>
             <Grid item xs={3} md={0.5}>
-              <Typography variant="body1" align="left" sx={{ p: 1, ml: 1 }} color={Like ? pink[500] : "" } >{user.likes}</Typography>
+              <Typography variant="body1" align="left" sx={{ p: 1, ml: 1 }} color={Like ? pink[500] : "" } >{comment.likes}</Typography>
             </Grid>
           </Grid>
           {isNSFW}

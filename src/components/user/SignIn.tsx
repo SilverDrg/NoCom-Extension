@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useContext } from 'react';
 import { TokenContext } from '../session/TokenContextProvider';
 import Axios from 'axios';
 
@@ -16,7 +15,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Constants from '../constants.json'
 
 export const SignIn = () => {
-    const { setToken } = useContext(TokenContext);
+    const { setToken } = React.useContext(TokenContext);
     const navigate = useNavigate();
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -27,7 +26,6 @@ export const SignIn = () => {
             Password: data.get('password')
         }).then(response => {
             setToken(response.data.token);
-            // localStorage.setItem('token', response.data.token);
             localStorage.setItem('expiration', response.data.expiration);
             localStorage.setItem('userId', response.data.userId);
             if(response.data.token) {

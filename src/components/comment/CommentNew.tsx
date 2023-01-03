@@ -8,7 +8,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import Constants from '../constants.json'
 
 export const CommentNew = () => {
-    const [anonymous, setAnonymous] = useState(false);
     const [nsfw, setNsfw] = useState(false);
     const [website, setWebsite] = useState<string | undefined>();
     const navigate = useNavigate();
@@ -21,10 +20,6 @@ export const CommentNew = () => {
             console.log(tabs[0].url);
         });
     }, []);
-
-    const handleAnonymous = () => {
-        setAnonymous(!anonymous);
-    }
 
     const handleNsfw = () => {
         setNsfw(!nsfw);
@@ -39,16 +34,8 @@ export const CommentNew = () => {
               setWebsite(tabs[0].url)
           })
         const data = new FormData(event.currentTarget);
-        console.log({
-            content: data.get('comment'),
-            anonymous: anonymous,
-            nsfw: nsfw,
-            website: website,
-            userId: localStorage.getItem('userId'),
-        });
         Axios.post(Constants.API_URL + '/Comments', {
             content: data.get('comment'),
-            anonymous: anonymous,
             nsfw: nsfw,
             website: website ?? '',
             userId: localStorage.getItem('userId'),
@@ -87,10 +74,6 @@ export const CommentNew = () => {
                     name="comment"
                     autoComplete="comment"
                     autoFocus
-                />
-                <FormControlLabel
-                    control={<Checkbox value="anonymous" checked={anonymous} onChange={handleAnonymous} color="primary" />}
-                    label="Anonymous"
                 />
                 <FormControlLabel
                     control={<Checkbox value="nsfw" checked={nsfw} onChange={handleNsfw} color="primary" />}

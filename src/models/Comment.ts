@@ -4,8 +4,8 @@ export interface CommentModel {
     encryptedUrl: string;
     likes: number;
     nsfw: boolean;
-    replyTo: number;
-    createdAt: number;
-    updatedAt: number;
+    replyTo: number | null;
+    createdAt: string;
+    updatedAt: string;
     username: string;
 }

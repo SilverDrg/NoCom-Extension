@@ -17,6 +17,8 @@ export const useCommentsList = (): [CommentModel[], () => void] => {
         })
     }, [website])
 
+    React.useDebugValue(commentsList ?? 'Loading...');
+
     const loadMoreComments = React.useCallback(() => {
         Axios.get(`${Constants.API_URL}/Comments/${website}/${page+1}`).then((response) => {
             const newComments: CommentModel[] = response.data;

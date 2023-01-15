@@ -1,4 +1,4 @@
 export interface Website {
-    id: number;
-    urlHash: string;
+  id: number;
+  urlHash: string;
 }

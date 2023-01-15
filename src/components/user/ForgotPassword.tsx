@@ -20,51 +20,46 @@ export const ForgotPassword = () => {
 
   return (
     <Container component="main" maxWidth="xs">
-    <Box
+      <Box
         sx={{
-        marginTop: 2,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
+          marginTop: 2,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
         }}
-    >
+      >
         <Avatar sx={{ m: 1, bgcolor: 'secondary.dark' }}>
-            <EmailOutlinedIcon />
+          <EmailOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-            Forgot password?
+          Forgot password?
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField
-                margin="dense"
-                size="small"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-            />
-            <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-            >
-                Send
-            </Button>
-            <Grid container>
-                <Grid item>
-                    <Link to="/sign-in" style={{ textDecoration: 'none' }}>
-                        <Typography color="primary.dark" variant="body2">
-                            {"Back to Sign in"}
-                        </Typography>
-                    </Link>
-                </Grid>
+          <TextField
+            margin="dense"
+            size="small"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
+          />
+          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+            Send
+          </Button>
+          <Grid container>
+            <Grid item>
+              <Link to="/sign-in" style={{ textDecoration: 'none' }}>
+                <Typography color="primary.dark" variant="body2">
+                  {'Back to Sign in'}
+                </Typography>
+              </Link>
             </Grid>
+          </Grid>
         </Box>
-    </Box>
+      </Box>
     </Container>
   );
-}
+};

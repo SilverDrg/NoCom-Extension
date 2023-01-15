@@ -1,8 +1,8 @@
-import React from "react";
-import { useWebsiteUrl } from "./useWebsiteUrl";
-import { CommentModel } from "../models/Comment";
-import { TokenContext } from "../components/session/TokenContextProvider";
-import { apiFetchComments } from "../util/apiCalls";
+import React from 'react';
+import { useWebsiteUrl } from './useWebsiteUrl';
+import { CommentModel } from '../models/Comment';
+import { TokenContext } from '../components/session/TokenContextProvider';
+import { apiFetchComments } from '../util/apiCalls';
 
 export const useCommentsList = (): [CommentModel[], () => void] => {
   const { token } = React.useContext(TokenContext);
@@ -11,19 +11,19 @@ export const useCommentsList = (): [CommentModel[], () => void] => {
   const [commentsList, setCommentsList] = React.useState<CommentModel[]>([]);
 
   React.useEffect(() => {
-    apiFetchComments(token, website, 1).then((response) => {
+    apiFetchComments(token, website, 1).then(response => {
       console.log(response);
       setCommentsList(response.data);
     });
   }, [token, website]);
 
-  React.useDebugValue(commentsList ?? "Loading...");
+  React.useDebugValue(commentsList ?? 'Loading...');
 
   const loadMoreComments = React.useCallback(() => {
-    apiFetchComments(token, website, page).then((response) => {
+    apiFetchComments(token, website, page).then(response => {
       const newComments: CommentModel[] = response.data;
       setCommentsList([...commentsList, ...newComments]);
-      setPage((page) => page + 1);
+      setPage(page => page + 1);
     });
   }, [commentsList, page, token, website]);
 

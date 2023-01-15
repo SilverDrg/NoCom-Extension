@@ -1,5 +1,4 @@
 import * as React from "react";
-import Axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
 import { Avatar, Button, TextField, Grid, Box } from "@mui/material";
@@ -8,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
 import { TokenContext } from "../session/TokenContextProvider";
-import Constants from "../constants.json";
+import { apiSignIn } from "../../util/apiCalls";
 
 export const SignIn = () => {
   const { setToken } = React.useContext(TokenContext);
@@ -17,9 +16,9 @@ export const SignIn = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    Axios.post(Constants.API_URL + "/Account/Login", {
-      Username: data.get("username"),
-      Password: data.get("password"),
+    apiSignIn({
+      Username: data.get("username") as string,
+      Password: data.get("password") as string,
     }).then((response) => {
       setToken(response.data.token);
       localStorage.setItem("expiration", response.data.expiration);

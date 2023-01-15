@@ -1,20 +1,12 @@
 import * as React from "react";
-import Axios from "axios";
 import validator from "validator";
+import { Link } from "react-router-dom";
 
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
+import { Avatar, Button, TextField, FormControlLabel, Checkbox, Grid, Box } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { Link } from "react-router-dom";
-
-import Constants from "../constants.json";
+import { apiSignUp, apiUsernameExists } from "../../util/apiCalls";
 
 interface errorMessage {
   usernameUnavailable: string;
@@ -39,7 +31,7 @@ export const SignUp = () => {
   React.useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       if (searchTerm !== "") {
-        Axios.get(Constants.API_URL + "/Account/Username/" + searchTerm)
+        apiUsernameExists(searchTerm)
           .then((response) => {
             if (response.data === "taken") {
               setInvalidForm((invalidForm) => ({
@@ -86,7 +78,7 @@ export const SignUp = () => {
   };
 
   const validatePassword = (value: string) => {
-    var isValid: number | boolean = validator.isStrongPassword(value, {
+    let isValid: number | boolean = validator.isStrongPassword(value, {
       minLength: 8,
       minLowercase: 1,
       minUppercase: 1,
@@ -119,11 +111,11 @@ export const SignUp = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    Axios.post(Constants.API_URL + "/Account/Register", {
-      Username: data.get("username"),
-      Email: data.get("email"),
-      Password: data.get("password"),
-      ConfirmPassword: data.get("confirm-password"),
+    apiSignUp({
+      Username: data.get("username") as string,
+      Email: data.get("email") as string,
+      Password: data.get("password") as string,
+      ConfirmPassword: data.get("confirm-password") as string,
     }).catch((error) => {
       console.log(error);
     });

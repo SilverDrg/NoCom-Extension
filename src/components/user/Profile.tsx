@@ -65,12 +65,12 @@ export const Profile = () => {
           </Grid>
           <Grid item xs={4} md={4}>
             <Typography variant="body2" align="left" sx={{ ml: 2 }}>
-              <Typography variant="body1" sx={{ fontWeight: 'bold', display: 'inline' }}>11</Typography> Comments
+              <Typography variant="body1" component="span" sx={{ fontWeight: 'bold', display: 'inline' }}>11</Typography> Comments
             </Typography>
           </Grid>
           <Grid item xs={4} md={4}>
             <Typography variant="body2" align="left">
-              <Typography variant="body1" sx={{ fontWeight: 'bold', display: 'inline' }}>21</Typography> Likes
+              <Typography variant="body1" component="span" sx={{ fontWeight: 'bold', display: 'inline' }}>21</Typography> Likes
             </Typography>
           </Grid>
         </Grid>

@@ -8,4 +8,7 @@ export interface CommentModel {
     createdAt: string;
     updatedAt: string;
     username: string;
+    isOwner: boolean;
+    repliesCount: number;
+    replies: object[];
 }

@@ -39,7 +39,7 @@ export const Comments = () => {
           flexDirection: 'column',
         }}
       >
-        {comments && comments.map(comment => <Comment key={comment.id} comment={comment} />)}
+        {comments && comments.map((comment, index) => <Comment key={`${comment.id}-${index}`} comment={comment} />)}
       </Box>
       <Box
         sx={{
@@ -49,9 +49,11 @@ export const Comments = () => {
           alignItems: 'center',
         }}
       >
-        <Button variant="contained" onClick={LoadMore} color="secondary">
-          Load more
-        </Button>
+        {!InfiniteLoad && (
+          <Button variant="contained" onClick={LoadMore} color="secondary">
+            Load more
+          </Button>
+        )}
       </Box>
     </Container>
   );

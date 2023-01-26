@@ -6,7 +6,7 @@ export const apiFetchComments = (
   website: string | undefined,
   page: number,
 ): Promise<AxiosResponse<any, any>> => {
-  return Axios.get(`${API_URL}/Comments/${website}/${page}`, {
+  return Axios.get(`${API_URL}/Comments/all/${website}/${page}`, {
     headers: {
       ...headers,
       Authorization: `Bearer ${token}`,

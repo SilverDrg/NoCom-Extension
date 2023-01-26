@@ -20,7 +20,7 @@ export const useCommentsList = (): [CommentModel[], () => void] => {
   React.useDebugValue(commentsList ?? 'Loading...');
 
   const loadMoreComments = React.useCallback(() => {
-    apiFetchComments(token, website, page).then(response => {
+    apiFetchComments(token, website, page + 1).then(response => {
       const newComments: CommentModel[] = response.data;
       setCommentsList([...commentsList, ...newComments]);
       setPage(page => page + 1);

@@ -14,6 +14,24 @@ export const apiFetchComments = (
   });
 };
 
+export const apiFetchUserCommentsNew = (token: string | null, page: number): Promise<AxiosResponse<any, any>> => {
+  return Axios.get(`${API_URL}/Comments/user/new/${page}`, {
+    headers: {
+      ...headers,
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export const apiFetchUserCommentsTop = (token: string | null, page: number): Promise<AxiosResponse<any, any>> => {
+  return Axios.get(`${API_URL}/Comments/user/top/${page}`, {
+    headers: {
+      ...headers,
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 export const apiSetLike = (token: string | null, commentId: number, liked: boolean) => {
   return Axios.post(
     `${API_URL}/LikedComments/${commentId}`,

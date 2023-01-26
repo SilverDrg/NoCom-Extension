@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Placeholder from '../../images/DogPlaceholder.jpg';
 import BannerPlaceholder from '../../images/wolf.jpg';
 import SettingsIcon from '@mui/icons-material/Settings';
+import { CommentsUser } from '../comment/CommentsUser';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -22,11 +23,7 @@ function TabPanel(props: TabPanelProps) {
       aria-labelledby={`full-width-tab-${index}`}
       {...other}
     >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
+      {value === index && <Box>{children}</Box>}
     </div>
   );
 }
@@ -97,19 +94,26 @@ export const Profile = () => {
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <Tabs value={tab} onChange={ChangeTab} centered sx={{ mt: 2, borderTop: 1, borderColor: 'primary.dark' }}>
+          <Tabs
+            textColor="secondary"
+            indicatorColor="secondary"
+            value={tab}
+            onChange={ChangeTab}
+            centered
+            sx={{ mt: 2, borderTop: 1, borderColor: 'primary', backgroundColor: 'primary' }}
+          >
             <Tab label="Comments" sx={{ width: '33%' }} />
             <Tab label="Likes" sx={{ width: '33%' }} />
             <Tab label="Top" sx={{ width: '33%' }} />
           </Tabs>
           <TabPanel value={tab} index={0}>
-            First panel
+            <CommentsUser sortBy="new" />
           </TabPanel>
           <TabPanel value={tab} index={1}>
             Second panel
           </TabPanel>
           <TabPanel value={tab} index={2}>
-            Third panel
+            <CommentsUser sortBy="top" />
           </TabPanel>
         </Grid>
       </Grid>

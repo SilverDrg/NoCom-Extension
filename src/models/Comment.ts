@@ -11,4 +11,5 @@ export interface CommentModel {
   isOwner: boolean;
   repliesCount: number;
   replies: object[];
+  isDeleted: boolean;
 }

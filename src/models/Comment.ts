@@ -12,4 +12,5 @@ export interface CommentModel {
   repliesCount: number;
   replies: object[];
   isDeleted: boolean;
+  isLiked: boolean;
 }

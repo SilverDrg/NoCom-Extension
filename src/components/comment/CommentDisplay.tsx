@@ -28,6 +28,7 @@ export const CommentDisplay = () => {
     repliesCount: 0,
     replies: [],
     isDeleted: false,
+    isLiked: false,
   };
   const navigate = useNavigate();
   const theme = useTheme();

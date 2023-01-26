@@ -27,6 +27,7 @@ export const CommentDisplay = () => {
     isOwner: true,
     repliesCount: 0,
     replies: [],
+    isDeleted: false,
   };
   const navigate = useNavigate();
   const theme = useTheme();

@@ -90,49 +90,53 @@ export const Comment = (props: any) => {
       <Grid sx={{ flexGrow: 1 }} container spacing={2}>
         <Grid item xs={12}>
           <Grid container justifyContent="start" spacing={2}>
-            <Grid item>
-              <IconButton
-                color={mode === 'dark' ? 'secondary' : 'default'}
-                aria-label="replies"
-                component="label"
-                onClick={handleViewReplies}
-              >
-                <ChatBubbleOutlineIcon
+            {!comment.isDeleted && (
+              <Grid item>
+                <IconButton
+                  color={mode === 'dark' ? 'secondary' : 'default'}
+                  aria-label="replies"
+                  component="label"
+                  onClick={handleViewReplies}
+                >
+                  <ChatBubbleOutlineIcon
+                    sx={{
+                      '&.MuiSvgIcon-root': { fontSize: 18 },
+                    }}
+                  />
+                </IconButton>
+                <Typography variant="body2" align="left" sx={{ p: 1, pl: 0, display: 'inline-block' }}>
+                  {comment.repliesCount}
+                </Typography>
+              </Grid>
+            )}
+            {!comment.isDeleted && (
+              <Grid item>
+                <Checkbox
+                  icon={<FavoriteBorderIcon />}
+                  checkedIcon={<FavoriteIcon />}
+                  value="like"
+                  checked={Like}
+                  onChange={handleLike}
                   sx={{
-                    '&.MuiSvgIcon-root': { fontSize: 18 },
+                    color: 'primary',
+                    '&.Mui-checked': {
+                      color: pink[600],
+                    },
+                    '& .MuiSvgIcon-root': { fontSize: 18 },
                   }}
                 />
-              </IconButton>
-              <Typography variant="body2" align="left" sx={{ p: 1, pl: 0, display: 'inline-block' }}>
-                {comment.repliesCount}
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Checkbox
-                icon={<FavoriteBorderIcon />}
-                checkedIcon={<FavoriteIcon />}
-                value="like"
-                checked={Like}
-                onChange={handleLike}
-                sx={{
-                  color: 'primary',
-                  '&.Mui-checked': {
-                    color: pink[600],
-                  },
-                  '& .MuiSvgIcon-root': { fontSize: 18 },
-                }}
-              />
-              <Typography
-                variant="body2"
-                align="left"
-                sx={{ p: 1, pl: 0, display: 'inline-block' }}
-                color={Like ? pink[500] : ''}
-              >
-                {LikesCount}
-              </Typography>
-            </Grid>
+                <Typography
+                  variant="body2"
+                  align="left"
+                  sx={{ p: 1, pl: 0, display: 'inline-block' }}
+                  color={Like ? pink[500] : ''}
+                >
+                  {LikesCount}
+                </Typography>
+              </Grid>
+            )}
             {isNSFW}
-            {isCommentOwner}
+            {!comment.isDeleted && isCommentOwner}
           </Grid>
         </Grid>
       </Grid>

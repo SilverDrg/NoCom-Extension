@@ -14,3 +14,10 @@ export interface CommentModel {
   isDeleted: boolean;
   isLiked: boolean;
 }
+
+export interface CommentFormModel {
+  content: string;
+  nsfw: boolean;
+  website: string;
+  userId: string | null;
+}

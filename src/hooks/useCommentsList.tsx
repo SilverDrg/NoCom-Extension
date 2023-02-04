@@ -2,9 +2,9 @@ import React from 'react';
 import { useWebsiteUrl } from './useWebsiteUrl';
 import { CommentModel } from '../models/Comment';
 import { TokenContext } from '../components/session/TokenContextProvider';
-import { apiFetchComments } from '../util/apiCalls';
+import { apiDeleteComment, apiFetchComments } from '../util/apiCalls';
 
-export const useCommentsList = (): [CommentModel[], () => void] => {
+export const useCommentsList = (): [CommentModel[], () => void, (commentId: number) => void] => {
   const { token } = React.useContext(TokenContext);
   const [page, setPage] = React.useState(1);
   const website = useWebsiteUrl();
@@ -27,5 +27,17 @@ export const useCommentsList = (): [CommentModel[], () => void] => {
     });
   }, [commentsList, page, token, website]);
 
-  return [commentsList, loadMoreComments];
+  //TODO: Create modal to make sure the user wants to remove the comment
+  const removeComment = React.useCallback(
+    (commentId: number) => {
+      apiDeleteComment(token, commentId).then(() => {
+        const newCommentsList = commentsList.filter(comment => comment.id !== commentId);
+        console.log(newCommentsList);
+        setCommentsList(newCommentsList);
+      });
+    },
+    [commentsList, token],
+  );
+
+  return [commentsList, loadMoreComments, removeComment];
 };

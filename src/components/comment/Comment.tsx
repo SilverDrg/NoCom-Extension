@@ -13,15 +13,20 @@ import { CommentModel } from '../../models/Comment';
 import { useLoggedIn } from '../../hooks/useLoggedIn';
 import { apiSetLike } from '../../util/apiCalls';
 
-export const Comment = (props: any) => {
-  const comment: CommentModel = props.comment;
+type CommentProps = {
+  comment: CommentModel;
+  deleteComment: (commentId: number) => void;
+};
+
+export const Comment = (props: CommentProps) => {
+  const { comment, deleteComment } = props;
   const theme = useTheme();
   const navigate = useNavigate();
   const [isLoggedIn] = useLoggedIn();
   const { mode } = React.useContext(ColorModeContext);
   const { token } = React.useContext(TokenContext);
-  const [Like, setLike] = React.useState(false);
-  const [LikesCount, setLikesCount] = React.useState(comment.likes);
+  const [Like, setLike] = React.useState(comment.isLiked ?? false);
+  const [LikesCount, setLikesCount] = React.useState(comment.likes ?? '');
   let isNSFW, isCommentOwner;
 
   const handleLike = () => {
@@ -36,6 +41,12 @@ export const Comment = (props: any) => {
   const handleViewReplies = () => {
     navigate(`/comments/${comment.id}`);
   };
+
+  const handleDeleteComment = React.useCallback(() => {
+    console.log('deleting');
+    deleteComment(comment.id);
+    // comment.isDeleted = true;
+  }, [comment, deleteComment]);
 
   if (comment.nsfw) {
     isNSFW = (
@@ -56,7 +67,7 @@ export const Comment = (props: any) => {
               color="error"
               aria-label="commentOwner"
               component="label"
-              onClick={handleViewReplies}
+              onClick={handleDeleteComment}
               sx={{ mr: 0.5 }}
             >
               <DeleteOutlineOutlinedIcon

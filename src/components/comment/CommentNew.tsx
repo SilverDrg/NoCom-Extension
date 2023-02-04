@@ -1,11 +1,10 @@
 import * as React from 'react';
-import Axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { Avatar, Button, TextField, Grid, Box, Typography, Container, FormControlLabel, Checkbox } from '@mui/material';
 import ChatIcon from '@mui/icons-material/Chat';
 import { TokenContext } from '../session/TokenContextProvider';
 
-import { API_URL } from '../constants';
+import { apiPostComment } from '../../util/apiCalls';
 
 export const CommentNew = () => {
   const { token } = React.useContext(TokenContext);
@@ -43,16 +42,12 @@ export const CommentNew = () => {
         },
       );
     const data = new FormData(event.currentTarget);
-    Axios.post(
-      API_URL + '/Comments',
-      {
-        content: data.get('comment'),
-        nsfw: nsfw,
-        website: website ?? '',
-        userId: localStorage.getItem('userId'),
-      },
-      { headers: { Authorization: `Bearer ${token}`, token: `${token}` } },
-    ).then(response => {
+    apiPostComment(token, {
+      content: data.get('comment') as string,
+      nsfw: nsfw,
+      website: website ?? '',
+      userId: localStorage.getItem('userId'),
+    }).then(response => {
       console.log(response);
     });
   };

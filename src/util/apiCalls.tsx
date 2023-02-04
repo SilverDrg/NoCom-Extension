@@ -1,5 +1,6 @@
 import Axios, { AxiosResponse } from 'axios';
 import { API_URL, headers } from '../components/constants';
+import { CommentFormModel } from '../models/Comment';
 
 export const apiFetchComments = (
   token: string | null,
@@ -32,6 +33,19 @@ export const apiFetchUserCommentsTop = (token: string | null, page: number): Pro
   });
 };
 
+export const apiPostComment = (token: string | null, comment: CommentFormModel) => {
+  return Axios.post(
+    API_URL + '/Comments',
+    {
+      content: comment.content,
+      nsfw: comment.nsfw,
+      website: comment.website ?? '',
+      userId: comment.userId,
+    },
+    { headers: { Authorization: `Bearer ${token}`, token: `${token}` } },
+  );
+};
+
 export const apiSetLike = (token: string | null, commentId: number, liked: boolean) => {
   return Axios.post(
     `${API_URL}/LikedComments/${commentId}`,
@@ -46,6 +60,15 @@ export const apiSetLike = (token: string | null, commentId: number, liked: boole
       },
     },
   );
+};
+
+export const apiDeleteComment = (token: string | null, commentId: number) => {
+  return Axios.delete(`${API_URL}/Comments/${commentId}`, {
+    headers: {
+      ...headers,
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };
 
 export const apiUsernameExists = (searchTerm: string): Promise<AxiosResponse<any, any>> => {

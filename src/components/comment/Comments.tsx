@@ -1,14 +1,31 @@
 import React from 'react';
+import { AxiosResponse } from 'axios';
 import { Box, Container, Button } from '@mui/material';
 import { useCommentsList } from '../../hooks/useCommentsList';
 import { Comment } from './Comment';
 import { RemoveCommentDialog } from './RemoveCommentDialog';
+import { apiFetchComments } from '../../util/apiCalls';
+import { CommentFilters } from './CommentFilters';
+import { ColorModeContext } from '../session/ThemeContextProvider';
 
-export const Comments = () => {
+type CommentsProps = {
+  sortBy?: 'new' | 'old' | 'top';
+  showFilter?: boolean;
+  apiFetch?: (
+    token: string | null,
+    page: number,
+    sortBy: string,
+    website: string | undefined,
+  ) => Promise<AxiosResponse<any, any>>;
+};
+
+export const Comments = (props: CommentsProps) => {
+  const { sortBy = 'new', showFilter = true, apiFetch = apiFetchComments } = props;
+  const { mode } = React.useContext(ColorModeContext);
   const [commentId, setCommentId] = React.useState<number>();
   const [openDialog, setOpenDialog] = React.useState(false);
   const [InfiniteLoad, setInfiniteLoad] = React.useState(false);
-  const [comments, loadMoreComments, removeComment] = useCommentsList();
+  const [comments, loadMoreComments, removeComment] = useCommentsList({ sortBy, apiFetch });
 
   const handleCloseDialog = React.useCallback(() => {
     setOpenDialog(false);
@@ -48,16 +65,21 @@ export const Comments = () => {
   }, [InfiniteLoad, loadMoreComments]);
 
   return (
-    <Container component="main" maxWidth="xs" sx={{ pl: 1, pr: 1 }}>
+    <Container
+      component="main"
+      maxWidth="xs"
+      sx={{ pl: 1, pr: 1, backgroundColor: mode === 'ligh' ? '#f0f0f0' : 'inherit' }}
+    >
       <RemoveCommentDialog open={openDialog} onClose={handleCloseDialog} removeComment={handleRemoveComment} />
       <Box
         sx={{
           width: '100%',
-          marginTop: 2,
+          marginTop: showFilter ? 0 : 2,
           display: 'flex',
           flexDirection: 'column',
         }}
       >
+        <CommentFilters />
         {comments &&
           comments.map((comment, index) => (
             <Comment

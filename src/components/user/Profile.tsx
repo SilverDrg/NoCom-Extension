@@ -1,10 +1,13 @@
-import { Box, Typography, Grid, Avatar, Tabs, Tab, Fab } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Box, Typography, Grid, Avatar, Tabs, Tab, Fab } from '@mui/material';
+import SettingsIcon from '@mui/icons-material/Settings';
+import { Comments } from '../comment/Comments';
+import { apiFetchUserComments, apiFetchUserLikes } from '../../util/apiCalls';
+import { ColorModeContext } from '../session/ThemeContextProvider';
+
 import Placeholder from '../../images/DogPlaceholder.jpg';
 import BannerPlaceholder from '../../images/wolf.jpg';
-import SettingsIcon from '@mui/icons-material/Settings';
-import { CommentsUser } from '../comment/CommentsUser';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -30,6 +33,7 @@ function TabPanel(props: TabPanelProps) {
 
 export const Profile = () => {
   const [tab, setTab] = React.useState(0);
+  const { mode } = React.useContext(ColorModeContext);
 
   const ChangeTab = (event: React.SyntheticEvent, newTab: number) => {
     setTab(newTab);
@@ -95,25 +99,25 @@ export const Profile = () => {
         </Grid>
         <Grid item xs={12}>
           <Tabs
-            textColor="secondary"
-            indicatorColor="secondary"
+            textColor={mode === 'light' ? 'primary' : 'secondary'}
+            indicatorColor={mode === 'light' ? 'primary' : 'secondary'}
             value={tab}
             onChange={ChangeTab}
             centered
             sx={{ mt: 2, borderTop: 1, borderColor: 'primary', backgroundColor: 'primary' }}
           >
             <Tab label="Comments" sx={{ width: '33%' }} />
-            <Tab label="Likes" sx={{ width: '33%' }} />
             <Tab label="Top" sx={{ width: '33%' }} />
+            <Tab label="Likes" sx={{ width: '33%' }} />
           </Tabs>
           <TabPanel value={tab} index={0}>
-            <CommentsUser sortBy="new" />
+            <Comments sortBy="new" showFilter={false} apiFetch={apiFetchUserComments} />
           </TabPanel>
           <TabPanel value={tab} index={1}>
-            Second panel
+            <Comments sortBy="top" showFilter={false} apiFetch={apiFetchUserComments} />
           </TabPanel>
           <TabPanel value={tab} index={2}>
-            <CommentsUser sortBy="top" />
+            <Comments sortBy="new" showFilter={false} apiFetch={apiFetchUserLikes} />
           </TabPanel>
         </Grid>
       </Grid>

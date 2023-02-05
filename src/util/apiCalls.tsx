@@ -4,8 +4,9 @@ import { CommentFormModel } from '../models/Comment';
 
 export const apiFetchComments = (
   token: string | null,
-  website: string | undefined,
   page: number,
+  sortBy: string,
+  website: string | undefined,
 ): Promise<AxiosResponse<any, any>> => {
   return Axios.get(`${API_URL}/Comments/all/${website}/${page}`, {
     headers: {
@@ -15,8 +16,13 @@ export const apiFetchComments = (
   });
 };
 
-export const apiFetchUserCommentsNew = (token: string | null, page: number): Promise<AxiosResponse<any, any>> => {
-  return Axios.get(`${API_URL}/Comments/user/new/${page}`, {
+export const apiFetchUserComments = (
+  token: string | null,
+  page: number,
+  sortBy: string,
+  website: string | undefined,
+): Promise<AxiosResponse<any, any>> => {
+  return Axios.get(`${API_URL}/Comments/user/${sortBy}/${page}`, {
     headers: {
       ...headers,
       Authorization: `Bearer ${token}`,
@@ -24,8 +30,13 @@ export const apiFetchUserCommentsNew = (token: string | null, page: number): Pro
   });
 };
 
-export const apiFetchUserCommentsTop = (token: string | null, page: number): Promise<AxiosResponse<any, any>> => {
-  return Axios.get(`${API_URL}/Comments/user/top/${page}`, {
+export const apiFetchUserLikes = (
+  token: string | null,
+  page: number,
+  sortBy: string,
+  website: string | undefined,
+): Promise<AxiosResponse<any, any>> => {
+  return Axios.get(`${API_URL}/LikedComments/user/${sortBy}/${page}`, {
     headers: {
       ...headers,
       Authorization: `Bearer ${token}`,

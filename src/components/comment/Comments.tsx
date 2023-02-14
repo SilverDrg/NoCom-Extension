@@ -15,6 +15,7 @@ type CommentsProps = {
     token: string | null,
     page: number,
     sortBy: string,
+    nsfw: boolean,
     website: string | undefined,
   ) => Promise<AxiosResponse<any, any>>;
 };
@@ -22,10 +23,16 @@ type CommentsProps = {
 export const Comments = (props: CommentsProps) => {
   const { sortBy = 'new', showFilter = true, apiFetch = apiFetchComments } = props;
   const { mode } = React.useContext(ColorModeContext);
+  const [sortByFilter, setSortByFilter] = React.useState(sortBy);
+  const [nsfwFilter, setNsfwFilter] = React.useState(false);
   const [commentId, setCommentId] = React.useState<number>();
   const [openDialog, setOpenDialog] = React.useState(false);
   const [InfiniteLoad, setInfiniteLoad] = React.useState(false);
-  const [comments, loadMoreComments, removeComment] = useCommentsList({ sortBy, apiFetch });
+  const [comments, loadMoreComments, removeComment] = useCommentsList({
+    sortBy: sortByFilter,
+    nsfw: nsfwFilter,
+    apiFetch,
+  });
 
   const handleCloseDialog = React.useCallback(() => {
     setOpenDialog(false);
@@ -79,7 +86,13 @@ export const Comments = (props: CommentsProps) => {
           flexDirection: 'column',
         }}
       >
-        <CommentFilters />
+        <CommentFilters
+          displaySortBy={showFilter}
+          sortByFilter={sortByFilter}
+          setSortByFilter={setSortByFilter}
+          nsfwFilter={nsfwFilter}
+          setNsfwFilter={setNsfwFilter}
+        />
         {comments &&
           comments.map((comment, index) => (
             <Comment

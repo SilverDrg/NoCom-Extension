@@ -6,9 +6,10 @@ export const apiFetchComments = (
   token: string | null,
   page: number,
   sortBy: string,
+  nsfw: boolean,
   website: string | undefined,
 ): Promise<AxiosResponse<any, any>> => {
-  return Axios.get(`${API_URL}/Comments/all/${website}/${page}`, {
+  return Axios.get(`${API_URL}/Comments/all/${website}/${sortBy}/${page}/${nsfw}`, {
     headers: {
       ...headers,
       Authorization: `Bearer ${token}`,
@@ -20,9 +21,11 @@ export const apiFetchUserComments = (
   token: string | null,
   page: number,
   sortBy: string,
+  nsfw: boolean,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   website: string | undefined,
 ): Promise<AxiosResponse<any, any>> => {
-  return Axios.get(`${API_URL}/Comments/user/${sortBy}/${page}`, {
+  return Axios.get(`${API_URL}/Comments/user/${sortBy}/${page}/${nsfw}`, {
     headers: {
       ...headers,
       Authorization: `Bearer ${token}`,
@@ -34,9 +37,11 @@ export const apiFetchUserLikes = (
   token: string | null,
   page: number,
   sortBy: string,
+  nsfw: boolean,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   website: string | undefined,
 ): Promise<AxiosResponse<any, any>> => {
-  return Axios.get(`${API_URL}/LikedComments/user/${sortBy}/${page}`, {
+  return Axios.get(`${API_URL}/LikedComments/user/${sortBy}/${page}/${nsfw}`, {
     headers: {
       ...headers,
       Authorization: `Bearer ${token}`,

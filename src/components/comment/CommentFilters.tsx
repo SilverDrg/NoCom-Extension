@@ -1,5 +1,8 @@
 import React from 'react';
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Box,
   Checkbox,
   FormControl,
@@ -7,83 +10,115 @@ import {
   FormGroup,
   InputLabel,
   MenuItem,
-  Paper,
   Select,
   SelectChangeEvent,
   Typography,
   useTheme,
 } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { ColorModeContext } from '../session/ThemeContextProvider';
+import { useLoggedIn } from '../../hooks/useLoggedIn';
 
-export const CommentFilters = () => {
-  const theme = useTheme();
+type CommentsFilterProps = {
+  sortByFilter: 'new' | 'old' | 'top';
+  displaySortBy: boolean;
+  nsfwFilter: boolean;
+  setSortByFilter: (value: 'new' | 'old' | 'top') => void;
+  setNsfwFilter: (value: boolean) => void;
+};
+
+export const CommentFilters = (props: CommentsFilterProps) => {
+  const { sortByFilter, displaySortBy, nsfwFilter, setSortByFilter, setNsfwFilter } = props;
   const { mode } = React.useContext(ColorModeContext);
-  const [sortBy, setSortBy] = React.useState('newest');
-  const [nsfw, setNsfw] = React.useState(false);
+  const [isLoggedIn] = useLoggedIn();
+  const theme = useTheme();
 
   const handleSortByChange = (event: SelectChangeEvent) => {
-    setSortBy(event.target.value);
+    setSortByFilter(event.target.value as 'new' | 'old' | 'top');
   };
 
   const handleNsfwChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNsfw(event.target.checked);
+    setNsfwFilter(event.target.checked);
   };
 
   return (
     <>
-      <Paper elevation={3} sx={{ mt: 1, p: 0.5 }}>
-        <FormControl sx={{ m: 1, minWidth: 120, width: '100%' }}>
-          <FormGroup row sx={{ justifyContent: 'space-between' }}>
-            <Box>
-              <InputLabel id="comments-filter-label" sx={{ left: 'unset' }}>
-                Sort by
-              </InputLabel>
-              <Select
-                labelId="comments-filter-label"
-                id="comments-filter"
-                value={sortBy}
-                label="Sort by"
-                onChange={handleSortByChange}
-                size="small"
-              >
-                <MenuItem dense value={'newest'}>
-                  Newest
-                </MenuItem>
-                <MenuItem dense value={'oldest'}>
-                  Oldest
-                </MenuItem>
-                <MenuItem dense value={'top'}>
-                  Top
-                </MenuItem>
-              </Select>
-            </Box>
-            <Box>
-              <FormControlLabel
-                label={
-                  <Typography variant="body2" color="textSecondary">
-                    Nsfw comments
-                  </Typography>
-                }
-                control={
-                  <Checkbox
-                    value="nsfw"
-                    checked={nsfw}
-                    onChange={handleNsfwChange}
+      <Accordion>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+          <Typography>Filters</Typography>
+        </AccordionSummary>
+        <AccordionDetails sx={{ p: 0 }}>
+          <FormControl sx={{ m: 1, minWidth: 120, width: '100%' }}>
+            <FormGroup row sx={{ justifyContent: 'space-between' }}>
+              {displaySortBy && (
+                <Box>
+                  <InputLabel
+                    id="comments-filter-label"
+                    color={mode === 'light' ? 'primary' : 'secondary'}
+                    sx={{ left: 'unset' }}
+                  >
+                    Sort by
+                  </InputLabel>
+                  <Select
+                    labelId="comments-filter-label"
+                    id="comments-filter"
+                    value={sortByFilter}
+                    label="Sort by"
+                    onChange={handleSortByChange}
                     size="small"
-                    sx={{
-                      color: 'secondary',
-                      '&.Mui-checked': {
-                        color: mode === 'light' ? theme.palette.primary.main : theme.palette.secondary.light,
-                      },
-                      '& .MuiSvgIcon-root': { fontSize: 16 },
+                    color={mode === 'light' ? 'primary' : 'secondary'}
+                    MenuProps={{
+                      disablePortal: true,
                     }}
+                    sx={{
+                      fontSize: '0.875rem',
+                      '&:focus': {
+                        color: 'primary',
+                      },
+                    }}
+                  >
+                    <MenuItem dense value={'new'}>
+                      Newest
+                    </MenuItem>
+                    <MenuItem dense value={'old'}>
+                      Oldest
+                    </MenuItem>
+                    <MenuItem dense value={'top'}>
+                      Top
+                    </MenuItem>
+                  </Select>
+                </Box>
+              )}
+              {isLoggedIn && (
+                <Box sx={{ ml: 1 }}>
+                  <FormControlLabel
+                    label={
+                      <Typography variant="body2" color="textSecondary">
+                        Nsfw comments
+                      </Typography>
+                    }
+                    control={
+                      <Checkbox
+                        value="nsfw"
+                        checked={nsfwFilter}
+                        onChange={handleNsfwChange}
+                        size="small"
+                        sx={{
+                          color: 'secondary',
+                          '&.Mui-checked': {
+                            color: mode === 'light' ? theme.palette.primary.main : theme.palette.secondary.light,
+                          },
+                          '& .MuiSvgIcon-root': { fontSize: '0.875rem' },
+                        }}
+                      />
+                    }
                   />
-                }
-              />
-            </Box>
-          </FormGroup>
-        </FormControl>
-      </Paper>
+                </Box>
+              )}
+            </FormGroup>
+          </FormControl>
+        </AccordionDetails>
+      </Accordion>
     </>
   );
 };

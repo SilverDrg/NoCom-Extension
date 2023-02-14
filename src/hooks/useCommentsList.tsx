@@ -7,10 +7,12 @@ import { AxiosResponse } from 'axios';
 
 type useCommentsListProps = {
   sortBy?: 'new' | 'old' | 'top';
+  nsfw?: boolean;
   apiFetch: (
     token: string | null,
     page: number,
     sortBy: string,
+    nsfw: boolean,
     website: string | undefined,
   ) => Promise<AxiosResponse<any, any>>;
 };
@@ -18,31 +20,35 @@ type useCommentsListProps = {
 export const useCommentsList = (
   props: useCommentsListProps,
 ): [CommentModel[], () => void, (commentId: number) => void] => {
-  const { sortBy, apiFetch } = props;
+  const { sortBy, nsfw, apiFetch } = props;
   const { token } = React.useContext(TokenContext);
   const [page, setPage] = React.useState(1);
   const website = useWebsiteUrl();
   const [commentsList, setCommentsList] = React.useState<CommentModel[]>([]);
 
   React.useEffect(() => {
+    let showNsfw = nsfw;
+    if (!showNsfw) showNsfw = false;
     let sorting = sortBy;
     if (!sorting) sorting = 'new';
-    apiFetch(token, 1, sorting, website).then(response => {
+    apiFetch(token, 1, sorting, showNsfw, website).then(response => {
       setCommentsList(response.data);
     });
-  }, [apiFetch, sortBy, token, website]);
+  }, [apiFetch, nsfw, sortBy, token, website]);
 
   React.useDebugValue(commentsList ?? 'Loading...');
 
   const loadMoreComments = React.useCallback(() => {
+    let showNsfw = nsfw;
+    if (!showNsfw) showNsfw = false;
     let sorting = sortBy;
     if (!sorting) sorting = 'new';
-    apiFetch(token, page + 1, sorting, website).then(response => {
+    apiFetch(token, page + 1, sorting, showNsfw, website).then(response => {
       const newComments: CommentModel[] = response.data;
       setCommentsList([...commentsList, ...newComments]);
       setPage(page => page + 1);
     });
-  }, [apiFetch, commentsList, page, sortBy, token, website]);
+  }, [apiFetch, commentsList, nsfw, page, sortBy, token, website]);
 
   //TODO: Create modal to make sure the user wants to remove the comment
   const removeComment = React.useCallback(

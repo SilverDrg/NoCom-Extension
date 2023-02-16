@@ -18,17 +18,37 @@ const TokenContextProvider: React.FC = ({ children }) => {
     return {
       token,
       setToken: (token: string | null) => {
-        setToken(token);
-        if (token !== null) {
-          localStorage.setItem('token', token);
-        } else {
-          localStorage.removeItem('token');
+        const expirationString = localStorage.getItem('expiration');
+
+        if (!expirationString) setToken(null);
+        else {
+          const expiration = new Date(expirationString);
+          const currentDate = new Date(Date.now());
+
+          if (expiration < currentDate) {
+            setToken(null);
+            removeTokenStorage();
+          } else {
+            setToken(token);
+
+            if (token !== null) {
+              localStorage.setItem('token', token);
+            } else {
+              removeTokenStorage();
+            }
+          }
         }
       },
     };
   }, [token]);
 
   return <TokenContext.Provider value={value}>{children}</TokenContext.Provider>;
+};
+
+const removeTokenStorage = () => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('userId');
+  localStorage.removeItem('expiration');
 };
 
 export default TokenContextProvider;

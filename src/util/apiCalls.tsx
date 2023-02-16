@@ -87,6 +87,14 @@ export const apiDeleteComment = (token: string | null, commentId: number) => {
   });
 };
 
+export const apiGetProfile = (userId: string): Promise<AxiosResponse<any, any>> => {
+  return Axios.get(`${API_URL}/Profile/id/${userId}`, {
+    headers: {
+      ...headers,
+    },
+  });
+};
+
 export const apiUsernameExists = (searchTerm: string): Promise<AxiosResponse<any, any>> => {
   return Axios.get(API_URL + '/Account/Username/' + searchTerm);
 };

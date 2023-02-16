@@ -21,9 +21,11 @@ import { Settings } from './components/user/Settings';
 import { SignIn } from './components/user/SignIn';
 import { SignUp } from './components/user/SignUp';
 
+import { useUserId } from './hooks/useUserId';
 import './App.css';
 
 const App: React.FC = () => {
+  const [userId] = useUserId();
   return (
     <HelmetProvider>
       <TokenContextProvider>
@@ -51,7 +53,7 @@ const App: React.FC = () => {
                   <Route element={<PrivateRoute />}>
                     <Route path="/comment-new" element={<CommentNew />} />
 
-                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/profile" element={<Profile userId={userId} />} />
                     <Route path="/settings" element={<Settings />} />
                   </Route>
 

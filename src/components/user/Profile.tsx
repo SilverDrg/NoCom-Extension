@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import { Box, Typography, Grid, Avatar, Tabs, Tab, Fab } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { Comments } from '../comment/Comments';
-import { apiFetchUserComments, apiFetchUserLikes } from '../../util/apiCalls';
+import { apiFetchUserComments, apiFetchUserLikes, apiGetProfile } from '../../util/apiCalls';
 import { ColorModeContext } from '../session/ThemeContextProvider';
+import { defaultProfile, ProfileModel } from '../../models/Profile';
 
 import Placeholder from '../../images/DogPlaceholder.jpg';
 import BannerPlaceholder from '../../images/wolf.jpg';
@@ -31,9 +32,24 @@ function TabPanel(props: TabPanelProps) {
   );
 }
 
-export const Profile = () => {
-  const [tab, setTab] = React.useState(0);
+type ProfileProps = {
+  userId: string | null;
+};
+
+export const Profile = (props: ProfileProps) => {
+  const { userId } = props;
   const { mode } = React.useContext(ColorModeContext);
+  const [tab, setTab] = React.useState(0);
+  const [profile, setProfile] = React.useState<ProfileModel>(defaultProfile);
+
+  React.useLayoutEffect(() => {
+    if (!userId) return;
+    apiGetProfile(userId).then(response => {
+      console.log(response.data);
+      const profileData = response.data as ProfileModel;
+      setProfile(profileData);
+    });
+  }, [userId]);
 
   const ChangeTab = (event: React.SyntheticEvent, newTab: number) => {
     setTab(newTab);
@@ -77,13 +93,13 @@ export const Profile = () => {
           </Grid>
           <Grid item xs={12} md={12}>
             <Typography variant="h6" align="left" sx={{ ml: 2, mb: 1, mt: 1 }}>
-              Dog
+              {profile.username}
             </Typography>
           </Grid>
           <Grid item xs={4} md={4}>
             <Typography variant="body2" align="left" sx={{ ml: 2 }}>
               <Typography variant="body1" component="span" sx={{ fontWeight: 'bold', display: 'inline' }}>
-                11
+                {profile.comments}
               </Typography>{' '}
               Comments
             </Typography>
@@ -91,7 +107,7 @@ export const Profile = () => {
           <Grid item xs={4} md={4}>
             <Typography variant="body2" align="left">
               <Typography variant="body1" component="span" sx={{ fontWeight: 'bold', display: 'inline' }}>
-                21
+                {profile.likes}
               </Typography>{' '}
               Likes
             </Typography>

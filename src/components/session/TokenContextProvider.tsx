@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import jwtDecode, { JwtPayload } from 'jwt-decode';
 
 interface TokenInformation {
   token: string | null;
@@ -12,30 +13,33 @@ export const TokenContext = React.createContext<TokenInformation>({
 });
 
 const TokenContextProvider: React.FC = ({ children }) => {
-  const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
+  const [token, setToken] = useState<string | null>(null);
+
+  React.useEffect(() => {
+    console.log('token: ', localStorage.getItem('token'));
+    setToken(localStorage.getItem('token'));
+  }, []);
 
   const value = useMemo<TokenInformation>(() => {
     return {
       token,
       setToken: (token: string | null) => {
-        const expirationString = localStorage.getItem('expiration');
+        if (!token) return setToken(null);
+        const decoded = jwtDecode<JwtPayload>(token);
+        if (!decoded.exp) return setToken(null);
+        const expiration = new Date(decoded.exp * 1000);
+        const currentDate = new Date(Date.now());
 
-        if (!expirationString) setToken(null);
-        else {
-          const expiration = new Date(expirationString);
-          const currentDate = new Date(Date.now());
+        if (expiration < currentDate) {
+          setToken(null);
+          removeTokenStorage();
+        } else {
+          setToken(token);
 
-          if (expiration < currentDate) {
-            setToken(null);
-            removeTokenStorage();
+          if (token !== null) {
+            localStorage.setItem('token', token);
           } else {
-            setToken(token);
-
-            if (token !== null) {
-              localStorage.setItem('token', token);
-            } else {
-              removeTokenStorage();
-            }
+            removeTokenStorage();
           }
         }
       },

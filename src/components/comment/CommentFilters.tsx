@@ -30,7 +30,7 @@ type CommentsFilterProps = {
 export const CommentFilters = (props: CommentsFilterProps) => {
   const { sortByFilter, displaySortBy, nsfwFilter, setSortByFilter, setNsfwFilter } = props;
   const { mode } = React.useContext(ColorModeContext);
-  const [isLoggedIn] = useLoggedIn();
+  const isLoggedIn = useLoggedIn();
   const theme = useTheme();
 
   const handleSortByChange = (event: SelectChangeEvent) => {

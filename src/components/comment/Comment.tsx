@@ -22,7 +22,7 @@ export const Comment = (props: CommentProps) => {
   const { comment, deleteComment } = props;
   const theme = useTheme();
   const navigate = useNavigate();
-  const [isLoggedIn] = useLoggedIn();
+  const isLoggedIn = useLoggedIn();
   const { mode } = React.useContext(ColorModeContext);
   const { token } = React.useContext(TokenContext);
   const [Like, setLike] = React.useState(comment.isLiked ?? false);

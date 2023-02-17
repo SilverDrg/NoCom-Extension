@@ -32,7 +32,7 @@ export const CommentDisplay = () => {
   };
   const navigate = useNavigate();
   const theme = useTheme();
-  const [isLoggedIn] = useLoggedIn();
+  const isLoggedIn = useLoggedIn();
   const { mode } = React.useContext(ColorModeContext);
   const { token } = React.useContext(TokenContext);
   const [like, setLike] = React.useState(false);

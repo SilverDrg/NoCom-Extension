@@ -49,6 +49,30 @@ export const apiFetchUserLikes = (
   });
 };
 
+export const apiFetchReplies = (
+  commentId: string,
+  token: string | null,
+  page: number,
+  sortBy: string,
+  nsfw: boolean,
+) => {
+  return Axios.get(`${API_URL}/Comments/${commentId}/${sortBy}/${page}/${nsfw}`, {
+    headers: {
+      ...headers,
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export const apiFetchComment = (token: string | null, commentId: string) => {
+  return Axios.get(`${API_URL}/Comments/${commentId}`, {
+    headers: {
+      ...headers,
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 export const apiPostComment = (token: string | null, comment: CommentFormModel) => {
   return Axios.post(
     API_URL + '/Comments',

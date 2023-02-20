@@ -1,11 +1,12 @@
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Box, Grid, Paper, Typography, Checkbox, IconButton, useTheme, CircularProgress } from '@mui/material';
+import { Box, Grid, Paper, Typography, Checkbox, IconButton, useTheme, CircularProgress, Button } from '@mui/material';
 import { pink } from '@mui/material/colors';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import { CommentReplies } from './CommentReplies';
 import { ColorModeContext } from '../session/ThemeContextProvider';
@@ -14,6 +15,7 @@ import { CommentModel } from '../../models/Comment';
 import { useLoggedIn } from '../../hooks/useLoggedIn';
 import { apiFetchComment, apiSetLike } from '../../util/apiCalls';
 import { CommentNewButton } from './CommentNewButton';
+import { GeneralTooltip } from '../util/GeneralTooltip';
 
 const commentDisplay: CommentModel = {
   id: 1,
@@ -65,6 +67,10 @@ export const CommentDisplay = () => {
     navigate(`/comments/${comment.id}`);
   };
 
+  const handleReturn = () => {
+    navigate(-1);
+  };
+
   if (comment.nsfw) {
     isNSFW = (
       <Grid item>
@@ -101,8 +107,15 @@ export const CommentDisplay = () => {
 
   return comment ? (
     <>
+      <Box sx={{ ml: 2, mt: 1, alignContent: 'flex-start', display: 'flex' }}>
+        <GeneralTooltip title="Back">
+          <Button sx={{ width: 42, minWidth: 36 }} variant="contained" onClick={handleReturn} color="secondary">
+            <ArrowBackIcon color="primary" />
+          </Button>
+        </GeneralTooltip>
+      </Box>
       <Box>
-        <Paper key={comment.id} elevation={3} sx={{ m: 2, p: 0.5 }}>
+        <Paper key={comment.id} elevation={3} sx={{ m: 2, mt: 1, p: 0.5 }}>
           <Typography
             variant="body1"
             align="left"

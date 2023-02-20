@@ -20,4 +20,5 @@ export interface CommentFormModel {
   nsfw: boolean;
   website: string;
   userId: string | null;
+  replyId?: string;
 }

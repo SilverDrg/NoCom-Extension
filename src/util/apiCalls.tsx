@@ -81,6 +81,7 @@ export const apiPostComment = (token: string | null, comment: CommentFormModel) 
       nsfw: comment.nsfw,
       website: comment.website ?? '',
       userId: comment.userId,
+      replyId: comment.replyId,
     },
     { headers: { Authorization: `Bearer ${token}`, token: `${token}` } },
   );

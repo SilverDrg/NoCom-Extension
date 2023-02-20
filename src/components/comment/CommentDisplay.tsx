@@ -13,6 +13,7 @@ import { TokenContext } from '../session/TokenContextProvider';
 import { CommentModel } from '../../models/Comment';
 import { useLoggedIn } from '../../hooks/useLoggedIn';
 import { apiFetchComment, apiSetLike } from '../../util/apiCalls';
+import { CommentNewButton } from './CommentNewButton';
 
 const commentDisplay: CommentModel = {
   id: 1,
@@ -113,7 +114,7 @@ export const CommentDisplay = () => {
           >
             {comment.username}
           </Typography>
-          <Typography variant="body2" align="left" sx={{ m: 1 }}>
+          <Typography variant="body2" align="left" sx={{ m: 1, whiteSpace: 'pre-line' }}>
             {comment.content}
           </Typography>
           <Grid sx={{ flexGrow: 1 }} container spacing={2}>
@@ -163,6 +164,7 @@ export const CommentDisplay = () => {
         </Paper>
       </Box>
       <CommentReplies mainCommentId={comment.id.toString()} />
+      <CommentNewButton commentId={comment.id.toString()} />
     </>
   ) : (
     <CircularProgress />

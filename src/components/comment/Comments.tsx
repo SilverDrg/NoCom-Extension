@@ -7,6 +7,7 @@ import { RemoveCommentDialog } from './RemoveCommentDialog';
 import { apiFetchComments } from '../../util/apiCalls';
 import { CommentFilters } from './CommentFilters';
 import { ColorModeContext } from '../session/ThemeContextProvider';
+import { CommentNewButton } from './CommentNewButton';
 
 type CommentsProps = {
   sortBy?: 'new' | 'old' | 'top';
@@ -116,6 +117,7 @@ export const Comments = (props: CommentsProps) => {
           </Button>
         )}
       </Box>
+      <CommentNewButton />
     </Container>
   );
 };

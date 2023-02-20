@@ -95,8 +95,9 @@ export const Comment = (props: CommentProps) => {
       >
         {comment.username}
       </Typography>
-      <Typography variant="body2" align="left" sx={{ m: 1 }}>
-        {comment.content}
+      <Typography variant="body2" align="left" sx={{ m: 1, whiteSpace: 'pre-line' }}>
+        {comment.content.slice(0, 64)}
+        {comment.content.length > 64 && '...'}
       </Typography>
       <Grid sx={{ flexGrow: 1 }} container spacing={2}>
         <Grid item xs={12}>

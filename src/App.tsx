@@ -11,7 +11,6 @@ import { Footer } from './components/general/Footer';
 import { PrivateRoute } from './components/general/PrivateRoute';
 
 import { CommentNew } from './components/comment/CommentNew';
-import { CommentNewButton } from './components/comment/CommentNewButton';
 import { Comments } from './components/comment/Comments';
 import { CommentDisplay } from './components/comment/CommentDisplay';
 
@@ -26,6 +25,7 @@ import './App.css';
 
 const App: React.FC = () => {
   const [userId] = useUserId();
+
   return (
     <HelmetProvider>
       <TokenContextProvider>
@@ -52,6 +52,7 @@ const App: React.FC = () => {
 
                   <Route element={<PrivateRoute />}>
                     <Route path="/comment-new" element={<CommentNew />} />
+                    <Route path="/comment-new/:id" element={<CommentNew />} />
 
                     <Route path="/profile" element={<Profile userId={userId} />} />
                     <Route path="/settings" element={<Settings />} />
@@ -62,7 +63,6 @@ const App: React.FC = () => {
                   <Route path="/forgot-pass" element={<ForgotPassword />} />
                 </Routes>
                 <Footer />
-                <CommentNewButton />
               </Router>
             </Box>
           </ThemeContextProvider>

@@ -23,7 +23,7 @@ export const useCommentsList = (
   const { sortBy, nsfw, apiFetch } = props;
   const { token } = React.useContext(TokenContext);
   const [page, setPage] = React.useState(1);
-  const website = useWebsiteUrl();
+  const [website] = useWebsiteUrl();
   const [commentsList, setCommentsList] = React.useState<CommentModel[]>([]);
 
   React.useEffect(() => {
@@ -32,6 +32,7 @@ export const useCommentsList = (
     let sorting = sortBy;
     if (!sorting) sorting = 'new';
     apiFetch(token, 1, sorting, showNsfw, website).then(response => {
+      console.log('received comments: ', response.data);
       setCommentsList(response.data);
     });
   }, [apiFetch, nsfw, sortBy, token, website]);

@@ -16,7 +16,6 @@ const TokenContextProvider: React.FC = ({ children }) => {
   const [token, setToken] = useState<string | null>(null);
 
   React.useEffect(() => {
-    console.log('token: ', localStorage.getItem('token'));
     setToken(localStorage.getItem('token'));
   }, []);
 

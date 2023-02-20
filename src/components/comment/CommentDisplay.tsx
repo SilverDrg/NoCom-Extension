@@ -44,10 +44,8 @@ export const CommentDisplay = () => {
   let isNSFW, isCommentOwner;
 
   React.useLayoutEffect(() => {
-    console.log(params.id);
     if (!params.id) return;
     apiFetchComment(token, params.id).then(response => {
-      console.log(response.data);
       setComment(response.data);
       setLike(response.data.isLiked);
       setLikesCount(response.data.likes);
@@ -57,7 +55,6 @@ export const CommentDisplay = () => {
   const handleLike = () => {
     if (!isLoggedIn) return;
     apiSetLike(token, comment.id, !like).then(response => {
-      console.log(response.data);
       if (typeof response.data === 'number') setLikesCount(response.data);
     });
     setLike(like => !like);

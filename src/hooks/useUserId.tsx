@@ -8,7 +8,6 @@ export const useUserId = (): [string | null] => {
   React.useEffect(() => {
     if (!token) setUserId(null);
     const userId = localStorage.getItem('userId');
-    console.log('user id: ', userId);
     if (!userId && userId !== '') setUserId(null);
     else setUserId(userId);
   }, [token]);

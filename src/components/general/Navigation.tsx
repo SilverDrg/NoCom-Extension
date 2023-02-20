@@ -10,6 +10,7 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import { TokenContext } from '../session/TokenContextProvider';
 import { ColorModeContext } from '../session/ThemeContextProvider';
 import { NavigationButtons } from './NavigationButtons';
+import { GeneralTooltip } from '../util/GeneralTooltip';
 
 export const Navigation = () => {
   const { token, setToken } = React.useContext(TokenContext);
@@ -59,14 +60,22 @@ export const Navigation = () => {
           indicatorColor="secondary"
         >
           <Tab
-            icon={<HomeIcon color="secondary" fontSize="large" />}
+            icon={
+              <GeneralTooltip title="Home">
+                <HomeIcon color="secondary" fontSize="large" />
+              </GeneralTooltip>
+            }
             aria-label="home"
             sx={{ minWidth: 36 }}
             component={Link}
             to={`/home`}
           />
           <Tab
-            icon={<ChatIcon color="secondary" fontSize="large" />}
+            icon={
+              <GeneralTooltip title="Comments">
+                <ChatIcon color="secondary" fontSize="large" />
+              </GeneralTooltip>
+            }
             aria-label="comments"
             sx={{ minWidth: 36 }}
             component={Link}
@@ -74,7 +83,11 @@ export const Navigation = () => {
           />
           {SignedIn && !expired && (
             <Tab
-              icon={<AccountCircleIcon color="secondary" fontSize="large" />}
+              icon={
+                <GeneralTooltip title="Profile">
+                  <AccountCircleIcon color="secondary" fontSize="large" />
+                </GeneralTooltip>
+              }
               aria-label="comments"
               sx={{ minWidth: 36 }}
               component={Link}
@@ -82,9 +95,11 @@ export const Navigation = () => {
             />
           )}
         </Tabs>
-        <IconButton sx={{ ml: 1, mr: 1, width: 51, minWidth: 36 }} color="secondary" onClick={onClickToggleMode}>
-          {mode === 'dark' ? <DarkModeIcon fontSize="large" /> : <LightModeIcon fontSize="large" />}
-        </IconButton>
+        <GeneralTooltip title="Theme">
+          <IconButton sx={{ ml: 1, mr: 1, width: 51, minWidth: 36 }} color="secondary" onClick={onClickToggleMode}>
+            {mode === 'dark' ? <DarkModeIcon fontSize="large" /> : <LightModeIcon fontSize="large" />}
+          </IconButton>
+        </GeneralTooltip>
         <NavigationButtons />
       </Toolbar>
     </AppBar>

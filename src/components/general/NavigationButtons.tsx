@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Box } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { TokenContext } from '../session/TokenContextProvider';
+import { GeneralTooltip } from '../util/GeneralTooltip';
 
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -35,18 +36,31 @@ export const NavigationButtons = () => {
   if (SignedIn && !expired) {
     return (
       <Box sx={{ ml: 'auto' }}>
-        <Button sx={{ m: 1, width: 42, minWidth: 36 }} variant="contained" color="secondary" onClick={onClickSignOut}>
-          <LogoutIcon color="primary" />
-        </Button>
+        <GeneralTooltip title="Log out">
+          <Button
+            sx={{
+              m: 1,
+              width: 42,
+              minWidth: 36,
+            }}
+            variant="contained"
+            color="secondary"
+            onClick={onClickSignOut}
+          >
+            <LogoutIcon color="primary" />
+          </Button>
+        </GeneralTooltip>
       </Box>
     );
   }
 
   return (
     <Box sx={{ ml: 'auto' }}>
-      <Button sx={{ width: 42, minWidth: 36 }} variant="contained" component={Link} to={`/sign-in`} color="secondary">
-        <LoginIcon color="primary" />
-      </Button>
+      <GeneralTooltip title="Log in">
+        <Button sx={{ width: 42, minWidth: 36 }} variant="contained" component={Link} to={`/sign-in`} color="secondary">
+          <LoginIcon color="primary" />
+        </Button>
+      </GeneralTooltip>
     </Box>
   );
 };

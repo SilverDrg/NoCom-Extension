@@ -44,7 +44,12 @@ export const CommentFilters = (props: CommentsFilterProps) => {
   return (
     <>
       <Accordion>
-        <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+          sx={{ height: '2rem', minHeight: 'unset', '&.Mui-expanded': { minHeight: '2rem' } }}
+        >
           <Typography>Filters</Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ p: 0 }}>

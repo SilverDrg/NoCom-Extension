@@ -44,7 +44,9 @@ export const useRepliesList = (
     if (!sorting) sorting = 'new';
     apiFetch(commentId, token, page + 1, sorting, showNsfw).then(response => {
       const newComments: CommentModel[] = response.data;
+      if (newComments.length === 0) return;
       setRepliesList([...repliesList, ...newComments]);
+      if (newComments.length < 10) return;
       setPage(page => page + 1);
     });
   }, [nsfw, sortBy, apiFetch, commentId, token, page, repliesList]);

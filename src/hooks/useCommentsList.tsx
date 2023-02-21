@@ -32,7 +32,6 @@ export const useCommentsList = (
     let sorting = sortBy;
     if (!sorting) sorting = 'new';
     apiFetch(token, 1, sorting, showNsfw, website).then(response => {
-      console.log('received comments: ', response.data);
       setCommentsList(response.data);
     });
   }, [apiFetch, nsfw, sortBy, token, website]);
@@ -46,7 +45,9 @@ export const useCommentsList = (
     if (!sorting) sorting = 'new';
     apiFetch(token, page + 1, sorting, showNsfw, website).then(response => {
       const newComments: CommentModel[] = response.data;
+      if (newComments.length === 0) return;
       setCommentsList([...commentsList, ...newComments]);
+      if (newComments.length < 10) return;
       setPage(page => page + 1);
     });
   }, [apiFetch, commentsList, nsfw, page, sortBy, token, website]);

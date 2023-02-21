@@ -66,15 +66,6 @@ export const Profile = (props: ProfileProps) => {
     >
       <Grid container sx={{ p: 0, m: 0 }}>
         <Grid item container>
-          <Fab
-            color="secondary"
-            size="medium"
-            component={Link}
-            to={'/settings'}
-            sx={{ position: 'absolute', right: 8, top: 72 }}
-          >
-            <SettingsIcon />
-          </Fab>
           <Grid item xs={12} md={12}>
             <Box sx={{ width: '100%', height: 128 }}>
               <Box
@@ -88,8 +79,24 @@ export const Profile = (props: ProfileProps) => {
             <Avatar
               alt="Dog"
               src={Placeholder}
-              sx={{ width: 92, height: 92, ml: 2, mt: -4, border: 2, borderColor: 'background.default' }}
+              sx={{
+                width: 92,
+                height: 92,
+                ml: 2,
+                mt: -4,
+                border: 2,
+                borderColor: 'background.default',
+              }}
             />
+            <Fab
+              color="secondary"
+              size="medium"
+              component={Link}
+              to={'/settings/profile'}
+              sx={{ position: 'absolute', right: 10, top: 198 }}
+            >
+              <SettingsIcon />
+            </Fab>
           </Grid>
           <Grid item xs={12} md={12}>
             <Typography variant="h6" align="left" sx={{ ml: 2, mb: 1, mt: 1 }}>

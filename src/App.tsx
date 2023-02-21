@@ -55,7 +55,7 @@ const App: React.FC = () => {
                     <Route path="/comment-new/:id" element={<CommentNew />} />
 
                     <Route path="/profile" element={<Profile userId={userId} />} />
-                    <Route path="/settings" element={<Settings />} />
+                    <Route path="/settings/profile" element={<Settings />} />
                   </Route>
 
                   <Route path="/sign-in" element={<SignIn />} />

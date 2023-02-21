@@ -67,12 +67,7 @@ export const Comments = (props: CommentsProps) => {
       }
     };
 
-    //window.addEventListener('scroll', ScrollLoad);
-    window.onscroll = debounce(ScrollLoad, 1000);
-
-    // return () => {
-    //   window.removeEventListener('scroll', ScrollLoad);
-    // };
+    window.onscroll = debounce(ScrollLoad, 500);
   }, [InfiniteLoad, loadMoreComments]);
 
   return (

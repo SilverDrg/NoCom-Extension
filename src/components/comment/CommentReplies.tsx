@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Container, Button } from '@mui/material';
+import { Box, Container, Button, debounce } from '@mui/material';
 import { useRepliesList } from '../../hooks/useReplies';
 import { Comment } from './Comment';
 import { RemoveCommentDialog } from './RemoveCommentDialog';
@@ -50,6 +50,8 @@ export const CommentReplies = (props: CommentRepliesProps) => {
 
   React.useEffect(() => {
     const ScrollLoad = (event: any) => {
+      console.log('first part: ', event.target.scrollingElement.clientHeight + event.target.scrollingElement.scrollTop);
+      console.log('second part: ', event.target.scrollingElement.scrollHeight - 60);
       const bottom =
         event.target.scrollingElement.clientHeight + event.target.scrollingElement.scrollTop >=
         event.target.scrollingElement.scrollHeight - 60;
@@ -58,18 +60,19 @@ export const CommentReplies = (props: CommentRepliesProps) => {
       }
     };
 
-    window.addEventListener('scroll', ScrollLoad);
+    //window.addEventListener('scroll', ScrollLoad);
+    window.onscroll = debounce(ScrollLoad, 5000);
 
-    return () => {
-      window.removeEventListener('scroll', ScrollLoad);
-    };
+    // return () => {
+    //   window.removeEventListener('scroll', ScrollLoad);
+    // };
   }, [InfiniteLoad, loadMoreComments]);
 
   return (
     <Container
       component="main"
       maxWidth="xs"
-      sx={{ pl: 1, pr: 1, backgroundColor: mode === 'ligh' ? '#f0f0f0' : 'inherit' }}
+      sx={{ pl: 1, pr: 1, pb: 1, backgroundColor: mode === 'ligh' ? '#f0f0f0' : 'inherit' }}
     >
       <RemoveCommentDialog open={openDialog} onClose={handleCloseDialog} removeComment={handleRemoveComment} />
       <Box
@@ -106,8 +109,8 @@ export const CommentReplies = (props: CommentRepliesProps) => {
           alignItems: 'center',
         }}
       >
-        {!InfiniteLoad && (
-          <Button variant="contained" onClick={LoadMore} color="secondary">
+        {!InfiniteLoad && replies.length >= 10 && (
+          <Button variant="contained" onClick={LoadMore} color="secondary" size="small">
             Load more
           </Button>
         )}

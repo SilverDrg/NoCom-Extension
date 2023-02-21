@@ -1,6 +1,6 @@
 import React from 'react';
 import { AxiosResponse } from 'axios';
-import { Box, Container, Button } from '@mui/material';
+import { Box, Container, Button, debounce } from '@mui/material';
 import { useCommentsList } from '../../hooks/useCommentsList';
 import { Comment } from './Comment';
 import { RemoveCommentDialog } from './RemoveCommentDialog';
@@ -57,6 +57,8 @@ export const Comments = (props: CommentsProps) => {
 
   React.useEffect(() => {
     const ScrollLoad = (event: any) => {
+      console.log('first part: ', event.target.scrollingElement.clientHeight + event.target.scrollingElement.scrollTop);
+      console.log('second part: ', event.target.scrollingElement.scrollHeight - 60);
       const bottom =
         event.target.scrollingElement.clientHeight + event.target.scrollingElement.scrollTop >=
         event.target.scrollingElement.scrollHeight - 60;
@@ -65,24 +67,25 @@ export const Comments = (props: CommentsProps) => {
       }
     };
 
-    window.addEventListener('scroll', ScrollLoad);
+    //window.addEventListener('scroll', ScrollLoad);
+    window.onscroll = debounce(ScrollLoad, 1000);
 
-    return () => {
-      window.removeEventListener('scroll', ScrollLoad);
-    };
+    // return () => {
+    //   window.removeEventListener('scroll', ScrollLoad);
+    // };
   }, [InfiniteLoad, loadMoreComments]);
 
   return (
     <Container
       component="main"
       maxWidth="xs"
-      sx={{ pl: 1, pr: 1, backgroundColor: mode === 'ligh' ? '#f0f0f0' : 'inherit' }}
+      sx={{ pl: 0, pr: 0, pb: 1, backgroundColor: mode === 'light' ? '#f0f0f0' : 'inherit' }}
     >
       <RemoveCommentDialog open={openDialog} onClose={handleCloseDialog} removeComment={handleRemoveComment} />
       <Box
         sx={{
           width: '100%',
-          marginTop: showFilter ? 0 : 2,
+          marginTop: showFilter ? 0 : 0.5,
           display: 'flex',
           flexDirection: 'column',
         }}
@@ -111,8 +114,8 @@ export const Comments = (props: CommentsProps) => {
           alignItems: 'center',
         }}
       >
-        {!InfiniteLoad && (
-          <Button variant="contained" onClick={LoadMore} color="secondary">
+        {!InfiniteLoad && comments.length >= 10 && (
+          <Button variant="contained" onClick={LoadMore} color="secondary" size="small">
             Load more
           </Button>
         )}

@@ -7,33 +7,16 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 
-import { TokenContext } from '../session/TokenContextProvider';
 import { ColorModeContext } from '../session/ThemeContextProvider';
 import { NavigationButtons } from './NavigationButtons';
 import { GeneralTooltip } from '../util/GeneralTooltip';
+import { useLoggedIn } from '../../hooks/useLoggedIn';
 
 export const Navigation = () => {
-  const { token, setToken } = React.useContext(TokenContext);
   const { mode, setMode } = React.useContext(ColorModeContext);
   const [value, setValue] = React.useState(1);
-  const [expired, setExpired] = React.useState<boolean>();
   const theme = useTheme();
-
-  React.useEffect(() => {
-    if (localStorage.getItem('expiration') !== null) {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const expires = new Date(localStorage.getItem('expiration')!);
-      const now = new Date();
-      if (expires === null || expires < now) {
-        setExpired(true);
-        setToken(null);
-      } else {
-        setExpired(false);
-      }
-    }
-  }, [setToken]);
-
-  const SignedIn = token !== null;
+  const SignedIn = useLoggedIn();
 
   const onClickToggleMode = () => {
     if (mode === 'light') {
@@ -81,7 +64,7 @@ export const Navigation = () => {
             component={Link}
             to={`/comments`}
           />
-          {SignedIn && !expired && (
+          {SignedIn && (
             <Tab
               icon={
                 <GeneralTooltip title="Profile">

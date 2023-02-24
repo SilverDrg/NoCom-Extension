@@ -13,7 +13,7 @@ export const TokenContext = React.createContext<TokenInformation>({
 });
 
 const TokenContextProvider: React.FC = ({ children }) => {
-  const [token, setToken] = useState<string | null>(null);
+  const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
 
   React.useEffect(() => {
     setToken(localStorage.getItem('token'));
@@ -23,7 +23,10 @@ const TokenContextProvider: React.FC = ({ children }) => {
     return {
       token,
       setToken: (token: string | null) => {
-        if (!token) return setToken(null);
+        if (!token) {
+          removeTokenStorage();
+          return setToken(null);
+        }
         const decoded = jwtDecode<JwtPayload>(token);
         if (!decoded.exp) return setToken(null);
         const expiration = new Date(decoded.exp * 1000);

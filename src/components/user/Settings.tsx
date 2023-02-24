@@ -1,24 +1,20 @@
-import { Box, Typography, Grid, Avatar, Fab } from '@mui/material';
-import { useContext } from 'react';
-import { ColorModeContext } from '../session/ThemeContextProvider';
+import React from 'react';
+import { Box, Typography, Grid, Avatar, Button } from '@mui/material';
+import { AvatarDialog } from './AvatarDialog';
 
 import Placeholder from '../../images/DogPlaceholder.jpg';
 import BannerPlaceholder from '../../images/wolf.jpg';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
 
 export const Settings = () => {
-  const { mode, setMode } = useContext(ColorModeContext);
+  const [openDialog, setOpenDialog] = React.useState(false);
 
-  const onClickToggleMode = () => {
-    if (mode === 'light') {
-      setMode('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      setMode('light');
-      localStorage.setItem('theme', 'light');
-    }
-  };
+  const handleCloseDialog = React.useCallback(() => {
+    setOpenDialog(false);
+  }, []);
+
+  const handleOpenDialog = React.useCallback(() => {
+    setOpenDialog(true);
+  }, []);
 
   return (
     <Box
@@ -30,17 +26,10 @@ export const Settings = () => {
         alignItems: 'center',
       }}
     >
+      <AvatarDialog open={openDialog} onClose={handleCloseDialog} />
       <Grid container sx={{ p: 0, m: 0 }}>
-        <Grid item container>
-          <Fab
-            color="secondary"
-            size="medium"
-            sx={{ position: 'absolute', right: 8, top: 72 }}
-            onClick={onClickToggleMode}
-          >
-            {mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-          </Fab>
-          <Grid item xs={12} md={12}>
+        <Grid item container sx={{ alignContent: 'flex-start' }}>
+          <Grid item xs={12} md={12} sx={{ display: 'grid' }}>
             <Box sx={{ width: '100%', height: 128 }}>
               <Box
                 component="img"
@@ -50,11 +39,30 @@ export const Settings = () => {
                 className=""
               />
             </Box>
-            <Avatar
-              alt="Dog"
-              src={Placeholder}
-              sx={{ width: 92, height: 92, ml: 2, mt: -4, border: 2, borderColor: 'background.default' }}
-            />
+            <Button
+              onClick={handleOpenDialog}
+              sx={{
+                width: 92,
+                height: 92,
+                ml: 2,
+                mt: -4,
+                border: 2,
+                borderRadius: 12,
+                borderColor: 'background.default',
+              }}
+            >
+              <Avatar
+                alt="Dog"
+                src={Placeholder}
+                sx={{
+                  width: 88,
+                  height: 88,
+                  '&:hover': {
+                    filter: 'blur(0.5px) brightness(0.75)',
+                  },
+                }}
+              />
+            </Button>
           </Grid>
           <Grid item xs={12} md={12}>
             <Typography variant="h6" align="left" sx={{ ml: 2, mb: 1, mt: 1 }}>

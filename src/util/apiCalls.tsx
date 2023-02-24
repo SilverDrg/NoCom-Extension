@@ -120,6 +120,15 @@ export const apiGetProfile = (userId: string): Promise<AxiosResponse<any, any>> 
   });
 };
 
+export const apiPostAvatar = (token: string | null, data: FormData) => {
+  return Axios.post(`${API_URL}/Profile/avatar/`, data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 export const apiUsernameExists = (searchTerm: string): Promise<AxiosResponse<any, any>> => {
   return Axios.get(API_URL + '/Account/Username/' + searchTerm);
 };

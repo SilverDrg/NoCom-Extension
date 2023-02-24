@@ -7,6 +7,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 
 import { CommentReplies } from './CommentReplies';
 import { ColorModeContext } from '../session/ThemeContextProvider';
@@ -71,6 +72,11 @@ export const CommentDisplay = () => {
     navigate(-1);
   };
 
+  const handleParent = () => {
+    if (!comment.replyTo) return;
+    navigate(`/comments/${comment.replyTo}`);
+  };
+
   if (comment.nsfw) {
     isNSFW = (
       <Grid item>
@@ -107,15 +113,34 @@ export const CommentDisplay = () => {
 
   return comment ? (
     <>
-      <Box sx={{ ml: 2, mt: 1, alignContent: 'flex-start', display: 'flex' }}>
+      <Box sx={{ ml: 2, mt: 1, alignContent: 'flex-start', display: 'flex', spacing: 3 }}>
         <GeneralTooltip title="Back">
-          <Button sx={{ width: 42, minWidth: 36 }} variant="contained" onClick={handleReturn} color="secondary">
-            <ArrowBackIcon color="primary" />
+          <Button
+            sx={{ width: 42, minWidth: 36 }}
+            variant="contained"
+            onClick={handleReturn}
+            color="secondary"
+            size="small"
+          >
+            <ArrowBackIcon color="primary" fontSize="small" />
           </Button>
         </GeneralTooltip>
+        {comment.replyTo && (
+          <GeneralTooltip title="Thread">
+            <Button
+              sx={{ width: 42, minWidth: 36, ml: 1 }}
+              variant="contained"
+              onClick={handleParent}
+              color="secondary"
+              size="small"
+            >
+              <ForumOutlinedIcon color="primary" fontSize="small" />
+            </Button>
+          </GeneralTooltip>
+        )}
       </Box>
       <Box>
-        <Paper key={comment.id} elevation={3} sx={{ m: 2, mt: 1, p: 0.5 }}>
+        <Paper key={comment.id} elevation={3} sx={{ m: 1, mt: 1, p: 0.5 }}>
           <Typography
             variant="body1"
             align="left"
@@ -133,44 +158,53 @@ export const CommentDisplay = () => {
           <Grid sx={{ flexGrow: 1 }} container spacing={2}>
             <Grid item xs={12}>
               <Grid container justifyContent="start" spacing={2}>
-                <Grid item>
-                  <IconButton color="secondary" aria-label="replies" component="label" onClick={handleViewReplies}>
-                    <ChatBubbleOutlineIcon
+                {!comment.isDeleted && (
+                  <Grid item>
+                    <IconButton
+                      color={mode === 'dark' ? 'secondary' : 'default'}
+                      aria-label="replies"
+                      component="label"
+                      onClick={handleViewReplies}
+                    >
+                      <ChatBubbleOutlineIcon
+                        sx={{
+                          '&.MuiSvgIcon-root': { fontSize: 18 },
+                        }}
+                      />
+                    </IconButton>
+                    <Typography variant="body2" align="left" sx={{ p: 1, pl: 0, display: 'inline-block' }}>
+                      {comment.repliesCount}
+                    </Typography>
+                  </Grid>
+                )}
+                {!comment.isDeleted && (
+                  <Grid item>
+                    <Checkbox
+                      icon={<FavoriteBorderIcon />}
+                      checkedIcon={<FavoriteIcon />}
+                      value="like"
+                      checked={like}
+                      onChange={handleLike}
                       sx={{
-                        '&.MuiSvgIcon-root': { fontSize: 18 },
+                        color: 'primary',
+                        '&.Mui-checked': {
+                          color: pink[600],
+                        },
+                        '& .MuiSvgIcon-root': { fontSize: 18 },
                       }}
                     />
-                  </IconButton>
-                  <Typography variant="body2" align="left" sx={{ p: 1, pl: 0, display: 'inline-block' }}>
-                    {comment.repliesCount}
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Checkbox
-                    icon={<FavoriteBorderIcon />}
-                    checkedIcon={<FavoriteIcon />}
-                    value="like"
-                    checked={like}
-                    onChange={handleLike}
-                    sx={{
-                      color: 'primary',
-                      '&.Mui-checked': {
-                        color: pink[600],
-                      },
-                      '& .MuiSvgIcon-root': { fontSize: 18 },
-                    }}
-                  />
-                  <Typography
-                    variant="body2"
-                    align="left"
-                    sx={{ p: 1, pl: 0, display: 'inline-block' }}
-                    color={like ? pink[500] : ''}
-                  >
-                    {likesCount}
-                  </Typography>
-                </Grid>
+                    <Typography
+                      variant="body2"
+                      align="left"
+                      sx={{ p: 1, pl: 0, display: 'inline-block' }}
+                      color={like ? pink[500] : ''}
+                    >
+                      {likesCount}
+                    </Typography>
+                  </Grid>
+                )}
                 {isNSFW}
-                {isCommentOwner}
+                {!comment.isDeleted && isCommentOwner}
               </Grid>
             </Grid>
           </Grid>

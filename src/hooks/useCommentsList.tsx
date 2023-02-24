@@ -57,7 +57,6 @@ export const useCommentsList = (
     (commentId: number) => {
       apiDeleteComment(token, commentId).then(() => {
         const newCommentsList = commentsList.filter(comment => comment.id !== commentId);
-        console.log(newCommentsList);
         setCommentsList(newCommentsList);
       });
     },

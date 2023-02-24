@@ -45,7 +45,6 @@ export const Profile = (props: ProfileProps) => {
   React.useLayoutEffect(() => {
     if (!userId) return;
     apiGetProfile(userId).then(response => {
-      console.log(response.data);
       const profileData = response.data as ProfileModel;
       setProfile(profileData);
     });

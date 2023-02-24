@@ -32,7 +32,6 @@ export const Comment = (props: CommentProps) => {
   const handleLike = () => {
     if (!isLoggedIn) return;
     apiSetLike(token, comment.id, !Like).then(response => {
-      console.log(response.data);
       if (typeof response.data === 'number') setLikesCount(response.data);
     });
     setLike(like => !like);
@@ -43,7 +42,6 @@ export const Comment = (props: CommentProps) => {
   };
 
   const handleDeleteComment = React.useCallback(() => {
-    console.log('deleting');
     deleteComment(comment.id);
     // comment.isDeleted = true;
   }, [comment, deleteComment]);

@@ -57,8 +57,6 @@ export const Comments = (props: CommentsProps) => {
 
   React.useEffect(() => {
     const ScrollLoad = (event: any) => {
-      console.log('first part: ', event.target.scrollingElement.clientHeight + event.target.scrollingElement.scrollTop);
-      console.log('second part: ', event.target.scrollingElement.scrollHeight - 60);
       const bottom =
         event.target.scrollingElement.clientHeight + event.target.scrollingElement.scrollTop >=
         event.target.scrollingElement.scrollHeight - 60;

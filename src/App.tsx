@@ -49,6 +49,7 @@ const App: React.FC = () => {
 
                   <Route path="/comments" element={<Comments />} />
                   <Route path="/comments/:id" element={<CommentDisplay />} />
+                  <Route path="/profile/:username" element={<Profile />} />
 
                   <Route element={<PrivateRoute />}>
                     <Route path="/comment-new" element={<CommentNew />} />

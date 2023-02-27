@@ -6,7 +6,6 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ForumOutlinedIcon from '@mui/icons-material/ForumOutlined';
 
 import { CommentReplies } from './CommentReplies';
@@ -17,6 +16,7 @@ import { useLoggedIn } from '../../hooks/useLoggedIn';
 import { apiFetchComment, apiSetLike } from '../../util/apiCalls';
 import { CommentNewButton } from './CommentNewButton';
 import { GeneralTooltip } from '../util/GeneralTooltip';
+import { BackButton } from '../util/BackButton';
 
 const commentDisplay: CommentModel = {
   id: 1,
@@ -68,10 +68,6 @@ export const CommentDisplay = () => {
     navigate(`/comments/${comment.id}`);
   };
 
-  const handleReturn = () => {
-    navigate(-1);
-  };
-
   const handleParent = () => {
     if (!comment.replyTo) return;
     navigate(`/comments/${comment.replyTo}`);
@@ -114,17 +110,7 @@ export const CommentDisplay = () => {
   return comment ? (
     <>
       <Box sx={{ ml: 2, mt: 1, alignContent: 'flex-start', display: 'flex', spacing: 3 }}>
-        <GeneralTooltip title="Back">
-          <Button
-            sx={{ width: 42, minWidth: 36 }}
-            variant="contained"
-            onClick={handleReturn}
-            color="secondary"
-            size="small"
-          >
-            <ArrowBackIcon color="primary" fontSize="small" />
-          </Button>
-        </GeneralTooltip>
+        <BackButton btnSize="small" fontSize="small" />
         {comment.replyTo && (
           <GeneralTooltip title="Thread">
             <Button

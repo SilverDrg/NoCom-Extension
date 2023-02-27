@@ -104,5 +104,5 @@ const paths: Paths = {
   'home': 0,
   'comments': 1,
   'profile': 2,
-  'setings': 2,
+  'settings': 2,
 };

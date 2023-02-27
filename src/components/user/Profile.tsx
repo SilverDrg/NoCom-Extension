@@ -1,14 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Box, Typography, Grid, Avatar, Tabs, Tab, Fab } from '@mui/material';
-import SettingsIcon from '@mui/icons-material/Settings';
 import { Comments } from '../comment/Comments';
-import { apiFetchUserComments, apiFetchUserLikes, apiGetProfile } from '../../util/apiCalls';
+import { Banner } from './Banner';
+import { apiFetchUserComments, apiFetchUserLikes, apiGetProfile, apiGetProfileUsername } from '../../util/apiCalls';
 import { ColorModeContext } from '../session/ThemeContextProvider';
 import { defaultProfile, ProfileModel } from '../../models/Profile';
+import SettingsIcon from '@mui/icons-material/Settings';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-import Placeholder from '../../images/DogPlaceholder.jpg';
-import BannerPlaceholder from '../../images/wolf.jpg';
+import { API_URL } from '../constants';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -33,7 +34,7 @@ function TabPanel(props: TabPanelProps) {
 }
 
 type ProfileProps = {
-  userId: string | null;
+  userId?: string | null;
 };
 
 export const Profile = (props: ProfileProps) => {
@@ -41,14 +42,25 @@ export const Profile = (props: ProfileProps) => {
   const { mode } = React.useContext(ColorModeContext);
   const [tab, setTab] = React.useState(0);
   const [profile, setProfile] = React.useState<ProfileModel>(defaultProfile);
+  const [avatar, setAvatar] = React.useState(`${API_URL}/Profile/avatar/id/${userId}`);
+  const params = useParams();
 
   React.useLayoutEffect(() => {
-    if (!userId) return;
-    apiGetProfile(userId).then(response => {
-      const profileData = response.data as ProfileModel;
-      setProfile(profileData);
-    });
-  }, [userId]);
+    const username = params.username;
+    if (username) {
+      apiGetProfileUsername(username).then(response => {
+        const profileData = response.data as ProfileModel;
+        setProfile(profileData);
+      });
+      setAvatar(`${API_URL}/Profile/avatar/username/${username}`);
+    } else {
+      if (!userId) return;
+      apiGetProfile(userId).then(response => {
+        const profileData = response.data as ProfileModel;
+        setProfile(profileData);
+      });
+    }
+  }, [params.username, userId]);
 
   const ChangeTab = (event: React.SyntheticEvent, newTab: number) => {
     setTab(newTab);
@@ -67,35 +79,47 @@ export const Profile = (props: ProfileProps) => {
         <Grid item container>
           <Grid item xs={12} md={12}>
             <Box sx={{ width: '100%', height: 128 }}>
-              <Box
-                component="img"
-                alt="Banner"
-                src={BannerPlaceholder}
-                sx={{ width: '100%', height: 128, objectFit: 'cover' }}
-                className=""
-              />
+              {params.username ? <Banner username={params.username} /> : <Banner />}
             </Box>
-            <Avatar
-              alt="Dog"
-              src={Placeholder}
-              sx={{
-                width: 92,
-                height: 92,
-                ml: 2,
-                mt: -4,
-                border: 2,
-                borderColor: 'background.default',
-              }}
-            />
-            <Fab
-              color="secondary"
-              size="medium"
-              component={Link}
-              to={'/settings/profile'}
-              sx={{ position: 'absolute', right: 10, top: 198 }}
-            >
-              <SettingsIcon />
-            </Fab>
+            {avatar ? (
+              <Avatar
+                alt="Profile avatar"
+                srcSet={avatar}
+                sx={{
+                  width: 92,
+                  height: 92,
+                  ml: 2,
+                  mt: -4,
+                  border: 2,
+                  borderColor: 'background.default',
+                }}
+              />
+            ) : (
+              <Avatar
+                alt="Profile avatar"
+                sx={{
+                  width: 92,
+                  height: 92,
+                  ml: 2,
+                  mt: -4,
+                  border: 2,
+                  borderColor: 'background',
+                }}
+              >
+                <AccountCircleIcon color="secondary" sx={{ fontSize: 106 }} />
+              </Avatar>
+            )}
+            {userId && (
+              <Fab
+                color="secondary"
+                size="medium"
+                component={Link}
+                to={'/settings/profile'}
+                sx={{ position: 'absolute', right: 10, top: 198 }}
+              >
+                <SettingsIcon />
+              </Fab>
+            )}
           </Grid>
           <Grid item xs={12} md={12}>
             <Typography variant="h6" align="left" sx={{ ml: 2, mb: 1, mt: 1 }}>

@@ -63,7 +63,7 @@ export const Settings = () => {
         <Grid item container sx={{ alignContent: 'flex-start' }}>
           <Grid item xs={12} md={12} sx={{ display: 'grid' }}>
             <Box>
-              <BackButton btnSize="small" />
+              <BackButton btnSize="small" absolute />
               <GeneralTooltip title="Update banner">
                 <Button
                   sx={{

@@ -4,26 +4,26 @@ import AvatarEditor from 'react-avatar-editor';
 import { useDropzone } from 'react-dropzone';
 import { ColorModeContext } from '../session/ThemeContextProvider';
 import { TokenContext } from '../session/TokenContextProvider';
-import { apiPostAvatar } from '../../util/apiCalls';
+import { apiPostBanner } from '../../util/apiCalls';
 
-import PlaceHolder from '../../images/FileUpload.png';
+import PlaceHolder from '../../images/FileUploadBanner.png';
 
-type AvatarDialogProps = {
+type BannerDialogProps = {
   open: boolean;
   onClose: () => void;
   onCloseApply: () => void;
 };
 
-export const AvatarDialog = (props: AvatarDialogProps) => {
+export const BannerDialog = (props: BannerDialogProps) => {
   const { open, onClose, onCloseApply } = props;
   const [image, setImage] = React.useState<string | File>(PlaceHolder);
   const [scale, setScale] = React.useState(1);
   const [disableDropzone, setDisableDropzone] = React.useState(false);
-  const avatarRef = React.useRef<AvatarEditor | null>(null);
+  const bannerRef = React.useRef<AvatarEditor | null>(null);
   const { mode } = React.useContext(ColorModeContext);
   const { token } = React.useContext(TokenContext);
-  const avatarColor = mode === 'light' ? [0, 0, 0, 0.2] : [256, 256, 256, 0.5];
-  const avatarBackgroundColor = mode === 'light' ? 'rgb(0, 0, 0, 0.2)' : 'rgb(256, 256, 256, 0.4)';
+  const bannerColor = mode === 'light' ? [0, 0, 0, 0.2] : [256, 256, 256, 0.5];
+  const bannerBackgroundColor = mode === 'light' ? 'rgb(0, 0, 0, 0.2)' : 'rgb(256, 256, 256, 0.4)';
 
   const handleDrop = (dropped: any) => {
     setImage(dropped[0]);
@@ -45,16 +45,16 @@ export const AvatarDialog = (props: AvatarDialogProps) => {
     return Math.min(Math.max(val, min), max);
   };
 
-  const applyAvatar = React.useCallback(() => {
+  const applyBanner = React.useCallback(() => {
     if (typeof image === 'string') return;
-    avatarRef.current?.getImageScaledToCanvas().toBlob(
+    bannerRef.current?.getImageScaledToCanvas().toBlob(
       blob => {
         if (!blob) return;
         const imageForm = new FormData();
         imageForm.append('image', blob);
         imageForm.append('name', image.name);
 
-        apiPostAvatar(token, imageForm);
+        apiPostBanner(token, imageForm);
       },
       'image/jpeg',
       0.95,
@@ -63,18 +63,18 @@ export const AvatarDialog = (props: AvatarDialogProps) => {
   }, [image, onCloseApply, token]);
 
   return (
-    <Dialog open={open} onClose={onClose} onWheel={handleScroll}>
-      <DialogContent>
+    <Dialog open={open} onClose={onClose} onWheel={handleScroll} PaperProps={{ sx: { margin: 1 } }}>
+      <DialogContent sx={{ px: 2, py: 2 }}>
         <div {...getRootProps()}>
           <AvatarEditor
-            ref={avatarRef}
-            width={192}
-            height={192}
+            ref={bannerRef}
+            width={320}
+            height={128}
             image={image}
             border={1}
-            borderRadius={96}
-            color={avatarColor}
-            backgroundColor={avatarBackgroundColor}
+            borderRadius={0}
+            color={bannerColor}
+            backgroundColor={bannerBackgroundColor}
             scale={scale}
           />
           <input {...getInputProps()} />
@@ -86,7 +86,7 @@ export const AvatarDialog = (props: AvatarDialogProps) => {
             </Button>
           </Grid>
           <Grid item>
-            <Button variant="contained" color={mode === 'light' ? 'primary' : 'secondary'} onClick={applyAvatar}>
+            <Button variant="contained" color={mode === 'light' ? 'primary' : 'secondary'} onClick={applyBanner}>
               Apply
             </Button>
           </Grid>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AppBar, Toolbar, Tabs, Tab, IconButton, useTheme } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import ChatIcon from '@mui/icons-material/Chat';
@@ -17,6 +17,13 @@ export const Navigation = () => {
   const [value, setValue] = React.useState(1);
   const theme = useTheme();
   const SignedIn = useLoggedIn();
+  const location = useLocation();
+
+  React.useLayoutEffect(() => {
+    const path = location.pathname as string;
+    if (!path) return;
+    setValue(paths[path]);
+  }, [location.pathname]);
 
   const onClickToggleMode = () => {
     if (mode === 'light') {
@@ -87,4 +94,14 @@ export const Navigation = () => {
       </Toolbar>
     </AppBar>
   );
+};
+
+interface Paths {
+  [key: string]: number;
+}
+
+const paths: Paths = {
+  '/home': 0,
+  '/comments': 1,
+  '/profile': 2,
 };

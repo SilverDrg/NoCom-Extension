@@ -1,16 +1,16 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Typography, Grid, Avatar, Button } from '@mui/material';
+import { Box, Typography, Grid, Button } from '@mui/material';
 import { AvatarDialog } from './AvatarDialog';
 import { BannerDialog } from './BannerDialog';
 import { Banner } from './Banner';
+import { AvatarImg } from './AvatarImg';
 import { GeneralTooltip } from '../util/GeneralTooltip';
 import { BackButton } from '../util/BackButton';
 import { apiGetProfile } from '../../util/apiCalls';
 import { useUserId } from '../../hooks/useUserId';
 import { ColorModeContext } from '../session/ThemeContextProvider';
 import { ProfileModel } from '../../models/Profile';
-import { API_URL } from '../constants';
 
 export const Settings = () => {
   const [openAvatarDialog, setOpenAvatarDialog] = React.useState(false);
@@ -101,17 +101,7 @@ export const Settings = () => {
                   borderColor: 'background.default',
                 }}
               >
-                <Avatar
-                  alt="Dog"
-                  src={`${API_URL}/Profile/avatar/id/${userId}`}
-                  sx={{
-                    width: 88,
-                    height: 88,
-                    '&:hover': {
-                      filter: 'blur(0.5px) brightness(0.75)',
-                    },
-                  }}
-                />
+                <AvatarImg settings />
               </Button>
             </GeneralTooltip>
           </Grid>

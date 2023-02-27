@@ -55,6 +55,7 @@ export const Profile = (props: ProfileProps) => {
       setAvatar(`${API_URL}/Profile/avatar/username/${username}`);
     } else {
       if (!userId) return;
+      setAvatar(`${API_URL}/Profile/avatar/id/${userId}`);
       apiGetProfile(userId).then(response => {
         const profileData = response.data as ProfileModel;
         setProfile(profileData);

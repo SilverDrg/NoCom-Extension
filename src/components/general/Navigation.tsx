@@ -20,7 +20,7 @@ export const Navigation = () => {
   const location = useLocation();
 
   React.useLayoutEffect(() => {
-    const path = location.pathname as string;
+    const path = (location.pathname as string).split('/')[1];
     if (!path) return;
     setValue(paths[path]);
   }, [location.pathname]);
@@ -101,7 +101,8 @@ interface Paths {
 }
 
 const paths: Paths = {
-  '/home': 0,
-  '/comments': 1,
-  '/profile': 2,
+  'home': 0,
+  'comments': 1,
+  'profile': 2,
+  'setings': 2,
 };

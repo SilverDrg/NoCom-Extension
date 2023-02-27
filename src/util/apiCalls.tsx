@@ -120,8 +120,41 @@ export const apiGetProfile = (userId: string): Promise<AxiosResponse<any, any>> 
   });
 };
 
+export const apiGetProfileUsername = (username: string): Promise<AxiosResponse<any, any>> => {
+  return Axios.get(`${API_URL}/Profile/username/${username}`, {
+    headers: {
+      ...headers,
+    },
+  });
+};
+
+export const apiGetBanner = (userId: string): Promise<AxiosResponse<any, any>> => {
+  return Axios.get(`${API_URL}/Profile/banner/id/${userId}`, {
+    headers: {
+      ...headers,
+    },
+  });
+};
+
+export const apiGetBannerUsername = (username: string): Promise<AxiosResponse<any, any>> => {
+  return Axios.get(`${API_URL}/Profile/banner/username/${username}`, {
+    headers: {
+      ...headers,
+    },
+  });
+};
+
 export const apiPostAvatar = (token: string | null, data: FormData) => {
   return Axios.post(`${API_URL}/Profile/avatar/`, data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export const apiPostBanner = (token: string | null, data: FormData) => {
+  return Axios.post(`${API_URL}/Profile/banner/`, data, {
     headers: {
       'Content-Type': 'multipart/form-data',
       Authorization: `Bearer ${token}`,

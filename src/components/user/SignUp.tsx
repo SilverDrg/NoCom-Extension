@@ -2,11 +2,12 @@ import * as React from 'react';
 import validator from 'validator';
 import { Link } from 'react-router-dom';
 
-import { Avatar, Button, TextField, FormControlLabel, Checkbox, Grid, Box } from '@mui/material';
+import { Avatar, Button, TextField, FormControlLabel, Checkbox, Grid, Box, useTheme } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { apiSignUp, apiUsernameExists } from '../../util/apiCalls';
+import { ColorModeContext } from '../session/ThemeContextProvider';
 
 interface errorMessage {
   usernameUnavailable: string;
@@ -17,6 +18,8 @@ interface errorMessage {
 }
 
 export const SignUp = () => {
+  const { mode } = React.useContext(ColorModeContext);
+  const theme = useTheme();
   const [invalidForm, setInvalidForm] = React.useState<errorMessage>({
     usernameUnavailable: '',
     usernameError: '',
@@ -26,6 +29,7 @@ export const SignUp = () => {
   } as errorMessage);
   const [password, setPassword] = React.useState<string>('');
   const [searchTerm, setSearchTerm] = React.useState<string>('');
+  const [agreed, setAgreed] = React.useState(false);
 
   // Check if the username is taken
   React.useEffect(() => {
@@ -121,11 +125,16 @@ export const SignUp = () => {
     });
   };
 
+  const handleUserAgreenment = () => {
+    setAgreed(agree => !agree);
+  };
+
   return (
     <Container component="main" maxWidth="xs">
       <Box
         sx={{
           marginTop: 2,
+          paddingBottom: 2,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -212,10 +221,22 @@ export const SignUp = () => {
             </Grid>
             <Grid item xs={12}>
               <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
+                control={
+                  <Checkbox
+                    value="userAgreenment"
+                    checked={agreed}
+                    onChange={handleUserAgreenment}
+                    sx={{
+                      color: 'secondary',
+                      '&.Mui-checked': {
+                        color: mode === 'light' ? theme.palette.primary.main : theme.palette.secondary.light,
+                      },
+                    }}
+                  />
+                }
                 label={
-                  <Typography variant="body2">
-                    I want to receive inspiration, marketing promotions and updates via email.
+                  <Typography variant="body2" sx={{ fontSize: 12 }}>
+                    I accept NoComs Terms of Service and Privacy Policy.
                   </Typography>
                 }
               />
@@ -225,6 +246,7 @@ export const SignUp = () => {
             type="submit"
             fullWidth
             variant="contained"
+            color={mode === 'light' ? 'primary' : 'secondary'}
             sx={{ mt: 3, mb: 2 }}
             disabled={
               invalidForm.usernameError !== ''
@@ -237,7 +259,7 @@ export const SignUp = () => {
                 ? true
                 : false || password === ''
                 ? true
-                : false
+                : false || !agreed
             }
           >
             Sign Up
@@ -245,7 +267,7 @@ export const SignUp = () => {
           <Grid container justifyContent="center">
             <Grid item>
               <Link to="/sign-in" style={{ textDecoration: 'none' }}>
-                <Typography color="primary.dark" variant="body2">
+                <Typography color={mode === 'light' ? 'primary.dark' : 'secondary'} variant="body2">
                   {'Already have an account? Sing in'}
                 </Typography>
               </Link>

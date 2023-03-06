@@ -8,8 +8,10 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Link } from 'react-router-dom';
+import { ColorModeContext } from '../session/ThemeContextProvider';
 
 export const ForgotPassword = () => {
+  const { mode } = React.useContext(ColorModeContext);
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -46,13 +48,19 @@ export const ForgotPassword = () => {
             autoComplete="email"
             autoFocus
           />
-          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color={mode === 'light' ? 'primary' : 'secondary'}
+            sx={{ mt: 3, mb: 2 }}
+          >
             Send
           </Button>
           <Grid container>
             <Grid item>
               <Link to="/sign-in" style={{ textDecoration: 'none' }}>
-                <Typography color="primary.dark" variant="body2">
+                <Typography color={mode === 'light' ? 'primary.dark' : 'secondary'} variant="body2">
                   {'Back to Sign in'}
                 </Typography>
               </Link>

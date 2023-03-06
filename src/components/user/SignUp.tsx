@@ -1,6 +1,6 @@
 import * as React from 'react';
 import validator from 'validator';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Avatar, Button, TextField, FormControlLabel, Checkbox, Grid, Box, useTheme } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -20,6 +20,7 @@ interface errorMessage {
 export const SignUp = () => {
   const { mode } = React.useContext(ColorModeContext);
   const theme = useTheme();
+  const navigate = useNavigate();
   const [invalidForm, setInvalidForm] = React.useState<errorMessage>({
     usernameUnavailable: '',
     usernameError: '',
@@ -120,9 +121,13 @@ export const SignUp = () => {
       Email: data.get('email') as string,
       Password: data.get('password') as string,
       ConfirmPassword: data.get('confirm-password') as string,
-    }).catch(error => {
-      console.log(error);
-    });
+    })
+      .then(response => {
+        if (response.status === 200) navigate('/comments');
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   const handleUserAgreenment = () => {

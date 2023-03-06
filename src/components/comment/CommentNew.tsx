@@ -51,9 +51,13 @@ export const CommentNew = () => {
       website: website ?? '',
       userId: localStorage.getItem('userId'),
       replyId: params.id,
-    }).then(response => {
-      console.log(response);
-    });
+    })
+      .then(response => {
+        if (response.status === 200) navigate('/comments');
+      })
+      .then(response => {
+        console.log(response);
+      });
   };
 
   return (

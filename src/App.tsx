@@ -8,7 +8,7 @@ import { Title } from './components/general/Title';
 import { Home } from './components/general/Home';
 import { Navigation } from './components/general/Navigation';
 import { Footer } from './components/general/Footer';
-import { PrivateRoute } from './components/general/PrivateRoute';
+import { PrivateRoute } from './components/util/PrivateRoute';
 
 import { CommentNew } from './components/comment/CommentNew';
 import { Comments } from './components/comment/Comments';

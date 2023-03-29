@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Box } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { TokenContext } from '../session/TokenContextProvider';
-import { GeneralTooltip } from '../util/GeneralTooltip';
+import { GeneralTooltip } from './GeneralTooltip';
 import { useLoggedIn } from '../../hooks/useLoggedIn';
 
 import LoginIcon from '@mui/icons-material/Login';

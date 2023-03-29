@@ -8,7 +8,7 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 
 import { ColorModeContext } from '../session/ThemeContextProvider';
-import { NavigationButtons } from './NavigationButtons';
+import { NavigationButtons } from '../util/NavigationButtons';
 import { GeneralTooltip } from '../util/GeneralTooltip';
 import { useLoggedIn } from '../../hooks/useLoggedIn';
 

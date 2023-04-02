@@ -111,7 +111,7 @@ export const CommentDisplay = () => {
     <>
       <Box sx={{ ml: 2, mt: 1, alignContent: 'flex-start', display: 'flex', spacing: 3 }}>
         <BackButton btnSize="small" fontSize="small" />
-        {comment.replyTo && (
+        {!!comment.replyTo && (
           <GeneralTooltip title="Thread">
             <Button
               sx={{ width: 42, minWidth: 36, ml: 1 }}

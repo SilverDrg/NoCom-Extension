@@ -129,7 +129,7 @@ export const apiGetProfileUsername = (username: string): Promise<AxiosResponse<a
 };
 
 export const apiGetBanner = (userId: string): Promise<AxiosResponse<any, any>> => {
-  return Axios.get(`${API_URL}/Profile/banner/id/${userId}`, {
+  return Axios.get(`${API_URL}/Profile/banner/id/${userId}?v=${Date.now()}`, {
     headers: {
       ...headers,
     },
@@ -137,7 +137,7 @@ export const apiGetBanner = (userId: string): Promise<AxiosResponse<any, any>> =
 };
 
 export const apiGetBannerUsername = (username: string): Promise<AxiosResponse<any, any>> => {
-  return Axios.get(`${API_URL}/Profile/banner/username/${username}`, {
+  return Axios.get(`${API_URL}/Profile/banner/username/${username}?v=${Date.now()}`, {
     headers: {
       ...headers,
     },

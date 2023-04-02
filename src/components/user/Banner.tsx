@@ -17,13 +17,13 @@ export const Banner = (props: BannerProps) => {
 
   React.useLayoutEffect(() => {
     if (username) {
-      setBannerUrl(`${API_URL}/Profile/banner/username/${username}`);
+      setBannerUrl(`${API_URL}/Profile/banner/username/${username}?v=${Date.now()}`);
       apiGetBannerUsername(username).then(response => {
         if (response.data) setReceived(true);
       });
     } else {
       if (!userId) return;
-      setBannerUrl(`${API_URL}/Profile/banner/id/${userId}`);
+      setBannerUrl(`${API_URL}/Profile/banner/id/${userId}?v=${Date.now()}`);
       apiGetBanner(userId).then(response => {
         if (response.data) setReceived(true);
       });

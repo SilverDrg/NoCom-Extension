@@ -34,10 +34,10 @@ export const AvatarImg = (props: AvatarImgProps) => {
 
   React.useLayoutEffect(() => {
     if (username) {
-      setAvatar(`${API_URL}/Profile/avatar/username/${username}`);
+      setAvatar(`${API_URL}/Profile/avatar/username/${username}?v=${Date.now()}`);
     } else {
       if (!userId) return;
-      setAvatar(`${API_URL}/Profile/avatar/id/${userId}`);
+      setAvatar(`${API_URL}/Profile/avatar/id/${userId}?v=${Date.now()}`);
     }
   }, [username, userId]);
 

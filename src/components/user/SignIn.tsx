@@ -80,13 +80,13 @@ export const SignIn = () => {
             Sign In
           </Button>
           <Grid container justifyContent="space-between">
-            <Grid item>
+            {/* <Grid item>
               <Link to="/forgot-pass" style={{ textDecoration: 'none' }}>
                 <Typography color={mode === 'light' ? 'primary.dark' : 'secondary'} variant="body2">
                   Forgot password?
                 </Typography>
               </Link>
-            </Grid>
+            </Grid> */}
             <Grid item>
               <Link to="/sign-up" style={{ textDecoration: 'none' }}>
                 <Typography color={mode === 'light' ? 'primary.dark' : 'secondary'} variant="body2">

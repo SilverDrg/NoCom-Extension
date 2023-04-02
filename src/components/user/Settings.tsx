@@ -52,6 +52,7 @@ export const Settings = () => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        minHeight: '300px',
       }}
     >
       <AvatarDialog open={openAvatarDialog} onClose={handleCloseDialog} onCloseApply={handleApplyCloseDialog} />

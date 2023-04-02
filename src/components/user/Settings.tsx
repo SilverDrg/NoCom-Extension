@@ -1,5 +1,4 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Box, Typography, Grid, Button } from '@mui/material';
 import { AvatarDialog } from './AvatarDialog';
 import { BannerDialog } from './BannerDialog';
@@ -18,7 +17,6 @@ export const Settings = () => {
   const [profile, setProfile] = React.useState<ProfileModel>();
   const { mode } = React.useContext(ColorModeContext);
   const [userId] = useUserId();
-  const navigate = useNavigate();
 
   React.useLayoutEffect(() => {
     if (!userId) return;
@@ -36,8 +34,7 @@ export const Settings = () => {
   const handleApplyCloseDialog = React.useCallback(() => {
     setOpenAvatarDialog(false);
     setOpenBannerDialog(false);
-    navigate(0);
-  }, [navigate]);
+  }, []);
 
   const handleOpenAvatarDialog = React.useCallback(() => {
     setOpenAvatarDialog(true);

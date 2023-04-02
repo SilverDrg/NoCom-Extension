@@ -53,7 +53,7 @@ export const CommentNew = () => {
       replyId: params.id,
     })
       .then(response => {
-        if (response.status === 200) navigate('/comments');
+        if (response.status === 201 || response.status === 200) navigate('/comments');
       })
       .then(response => {
         console.log(response);

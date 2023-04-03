@@ -12,8 +12,8 @@
     "activeTab"
   ],
   "icons": {
-      "16": "Icon-white128.png",
-      "48": "Icon-white128.png",
-      "128": "Icon-white128.png"
+      "16": "icon-light16.png",
+      "48": "icon-light48.png",
+      "128": "icon-light128.png"
   }
 }
